@@ -30,13 +30,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // Fetch initial data from Supabase
   useEffect(() => {
     const fetchData = async () => {
-      const { data: cats } = await supabase.from('categories').select('*');
+      const { data: cats, error: catsErr } = await supabase.from('categories').select('*');
+      if (catsErr) console.error('Fetch categories error:', catsErr);
       if (cats) setCategories(cats);
 
-      const { data: qs } = await supabase.from('questions').select('*').order('id', { ascending: false });
+      const { data: qs, error: qsErr } = await supabase.from('questions').select('*').order('id', { ascending: false });
+      if (qsErr) console.error('Fetch questions error:', qsErr);
       if (qs) setQuestions(qs);
 
-      const { data: sets } = await supabase.from('settings').select('*').eq('id', 'global').single();
+      const { data: sets, error: setsErr } = await supabase.from('settings').select('*').eq('id', 'global').single();
+      if (setsErr && setsErr.code !== 'PGRST116') console.error('Fetch settings error:', setsErr); // Ignore not found error
       if (sets) {
         setGlobalSettings({
           generalRules: sets.generalRules || '',
@@ -50,17 +53,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const addQuestion = async (q: QuestionEntry) => {
     setQuestions([q, ...questions]);
-    await supabase.from('questions').insert([q]);
+    const { error } = await supabase.from('questions').insert([q]);
+    if (error) console.error('Add question error:', error);
   };
   
   const updateQuestion = async (updatedQ: QuestionEntry) => {
     setQuestions(questions.map(q => q.id === updatedQ.id ? updatedQ : q));
-    await supabase.from('questions').update(updatedQ).eq('id', updatedQ.id);
+    const { error } = await supabase.from('questions').update(updatedQ).eq('id', updatedQ.id);
+    if (error) console.error('Update question error:', error);
   };
 
   const deleteQuestion = async (id: string) => {
     setQuestions(questions.filter(q => q.id !== id));
-    await supabase.from('questions').delete().eq('id', id);
+    const { error } = await supabase.from('questions').delete().eq('id', id);
+    if (error) console.error('Delete question error:', error);
   };
   
   const importExcelData = async (newCategories: CategoryTag[], newQuestions: QuestionEntry[], newSettings?: GlobalSettings) => {
@@ -82,14 +88,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     if (newSettings) {
       setGlobalSettings(newSettings);
-      await supabase.from('settings').upsert({ id: 'global', ...newSettings });
+      const { error } = await supabase.from('settings').upsert({ id: 'global', ...newSettings });
+      if (error) console.error('Upsert settings error:', error);
     }
 
     if (newCategories.length > 0) {
-      await supabase.from('categories').upsert(newCategories);
+      const { error } = await supabase.from('categories').upsert(newCategories);
+      if (error) console.error('Upsert categories error:', error);
     }
     if (newQuestions.length > 0) {
-      await supabase.from('questions').upsert(newQuestions);
+      const { error } = await supabase.from('questions').upsert(newQuestions);
+      if (error) console.error('Upsert questions error:', error);
     }
   };
 
@@ -128,11 +137,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }));
 
     if (updatedQuestion) {
-      await supabase.from('questions').update({
+      const { error } = await supabase.from('questions').update({
         likes: updatedQuestion.likes,
         dislikes: updatedQuestion.dislikes,
         userReaction: updatedQuestion.userReaction
       }).eq('id', questionId);
+      if (error) console.error('Toggle reaction error:', error);
     }
   };
 
@@ -154,23 +164,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }));
 
     if (updatedComments.length > 0) {
-      await supabase.from('questions').update({ comments: updatedComments }).eq('id', questionId);
+      const { error } = await supabase.from('questions').update({ comments: updatedComments }).eq('id', questionId);
+      if (error) console.error('Add comment error:', error);
     }
   };
 
   const addCategory = async (c: CategoryTag) => {
     setCategories([...categories, c]);
-    await supabase.from('categories').insert([c]);
+    const { error } = await supabase.from('categories').insert([c]);
+    if (error) console.error('Add category error:', error);
   };
   
   const deleteCategory = async (id: string) => {
     setCategories(categories.filter(c => c.id !== id));
-    await supabase.from('categories').delete().eq('id', id);
+    const { error } = await supabase.from('categories').delete().eq('id', id);
+    if (error) console.error('Delete category error:', error);
   };
   
   const updateSettings = async (s: GlobalSettings) => {
     setGlobalSettings(s);
-    await supabase.from('settings').upsert({ id: 'global', ...s });
+    const { error } = await supabase.from('settings').upsert({ id: 'global', ...s });
+    if (error) console.error('Update settings error:', error);
   };
 
   return (
