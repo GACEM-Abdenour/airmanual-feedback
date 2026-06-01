@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import type { QuestionEntry } from '../types';
 import { ThumbsUp, ThumbsDown, MessageSquare, Plus, Download, Upload, AlertCircle, Trash2, Edit2 } from 'lucide-react';
@@ -270,29 +270,29 @@ export function QuestionsManager() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div className="bg-background rounded-md p-4 border border-borderMain flex flex-col">
                 <span className="text-xs font-semibold text-emerald-400 uppercase mb-2 block">Response (Expected Answer)</span>
-                <textarea 
+                <AutoResizeTextarea 
                   value={newQuestionData.expectedAnswer}
                   onChange={e => setNewQuestionData({...newQuestionData, expectedAnswer: e.target.value})}
-                  className="w-full flex-1 min-h-[150px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                  className="w-full min-h-[150px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-none"
                   placeholder="The correct response..."
                 />
               </div>
               <div className="space-y-4 flex flex-col">
                 <div className="bg-background rounded-md p-4 border border-borderMain flex-1 flex flex-col">
                   <span className="text-xs font-semibold text-indigo-400 uppercase mb-2 block">Key Points</span>
-                  <textarea 
+                  <AutoResizeTextarea 
                     value={newQuestionData.keyPoints}
                     onChange={e => setNewQuestionData({...newQuestionData, keyPoints: e.target.value})}
-                    className="w-full flex-1 min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                    className="w-full min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-none"
                     placeholder="Must mention X, Y, and Z..."
                   />
                 </div>
                 <div className="bg-background rounded-md p-4 border border-borderMain flex-1 flex flex-col">
                   <span className="text-xs font-semibold text-amber-400 uppercase mb-2 block">Expected Resources</span>
-                  <textarea 
+                  <AutoResizeTextarea 
                     value={newQuestionData.expectedResources}
                     onChange={e => setNewQuestionData({...newQuestionData, expectedResources: e.target.value})}
-                    className="w-full flex-1 min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                    className="w-full min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-none"
                     placeholder="AMM Chapter 12..."
                   />
                 </div>
@@ -349,29 +349,29 @@ export function QuestionsManager() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div className="bg-background rounded-md p-4 border border-borderMain flex flex-col">
                     <span className="text-xs font-semibold text-emerald-400 uppercase mb-2 block">Response (Expected Answer)</span>
-                    <textarea 
+                    <AutoResizeTextarea 
                       value={newQuestionData.expectedAnswer}
                       onChange={e => setNewQuestionData({...newQuestionData, expectedAnswer: e.target.value})}
-                      className="w-full flex-1 min-h-[150px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                      className="w-full min-h-[150px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-none"
                       placeholder="The correct response..."
                     />
                   </div>
                   <div className="space-y-4 flex flex-col">
                     <div className="bg-background rounded-md p-4 border border-borderMain flex-1 flex flex-col">
                       <span className="text-xs font-semibold text-indigo-400 uppercase mb-2 block">Key Points</span>
-                      <textarea 
+                      <AutoResizeTextarea 
                         value={newQuestionData.keyPoints}
                         onChange={e => setNewQuestionData({...newQuestionData, keyPoints: e.target.value})}
-                        className="w-full flex-1 min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                        className="w-full min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-none"
                         placeholder="Must mention X, Y, and Z..."
                       />
                     </div>
                     <div className="bg-background rounded-md p-4 border border-borderMain flex-1 flex flex-col">
                       <span className="text-xs font-semibold text-amber-400 uppercase mb-2 block">Expected Resources</span>
-                      <textarea 
+                      <AutoResizeTextarea 
                         value={newQuestionData.expectedResources}
                         onChange={e => setNewQuestionData({...newQuestionData, expectedResources: e.target.value})}
-                        className="w-full flex-1 min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                        className="w-full min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-none"
                         placeholder="AMM Chapter 12..."
                       />
                     </div>
@@ -521,6 +521,25 @@ export function QuestionsManager() {
         </div>
       )}
     </div>
+  );
+}
+
+function AutoResizeTextarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [props.value]);
+
+  return (
+    <textarea
+      {...props}
+      ref={textareaRef}
+      className={`overflow-hidden ${props.className || ''}`}
+    />
   );
 }
 
