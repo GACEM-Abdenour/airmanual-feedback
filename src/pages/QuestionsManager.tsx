@@ -9,7 +9,7 @@ import type { GlobalSettings } from '../types';
 export function QuestionsManager() {
   const { questions, categories, globalSettings, addQuestion, updateQuestion, deleteQuestion, importExcelData, toggleReaction, addComment } = useAppContext();
   
-  const [isNewQuestionModalOpen, setIsNewQuestionModalOpen] = useState(false);
+  const [isCreatingNew, setIsCreatingNew] = useState(false);
   const [editingQuestionId, setEditingQuestionId] = useState<string | null>(null);
   const [questionToDelete, setQuestionToDelete] = useState<string | null>(null);
   const [newQuestionData, setNewQuestionData] = useState({
@@ -52,7 +52,7 @@ export function QuestionsManager() {
       categoryId: ''
     });
     setEditingQuestionId(null);
-    setIsNewQuestionModalOpen(false);
+    setIsCreatingNew(false);
   };
 
   const handleEditClick = (q: QuestionEntry) => {
@@ -64,7 +64,7 @@ export function QuestionsManager() {
       categoryId: q.categoryId
     });
     setEditingQuestionId(q.id);
-    setIsNewQuestionModalOpen(true);
+    setIsCreatingNew(false);
   };
 
   const handleDeleteClick = (id: string) => {
@@ -222,24 +222,183 @@ export function QuestionsManager() {
         </div>
       </div>
 
-      {/* Quick Add Question (Replaced by Modal button below, but keeping header clean) */}
+      {/* Add Question Button */}
       <div className="flex justify-end mb-6">
-        <button 
-          onClick={() => {
-            setEditingQuestionId(null);
-            setNewQuestionData({ question: '', expectedAnswer: '', keyPoints: '', expectedResources: '', categoryId: '' });
-            setIsNewQuestionModalOpen(true);
-          }}
-          className="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-md transition-colors flex items-center text-sm font-medium"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Add New Question
-        </button>
+        {!isCreatingNew && (
+          <button 
+            onClick={() => {
+              setEditingQuestionId(null);
+              setNewQuestionData({ question: '', expectedAnswer: '', keyPoints: '', expectedResources: '', categoryId: '' });
+              setIsCreatingNew(true);
+            }}
+            className="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-md transition-colors flex items-center text-sm font-medium"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Add New Question
+          </button>
+        )}
       </div>
 
       {/* Questions List */}
       <div className="flex-1 overflow-y-auto space-y-4 pb-10">
+        {isCreatingNew && (
+          <div className="bg-surface border border-primary rounded-lg p-5 mb-4 shadow-lg ring-1 ring-primary/20">
+            <div className="flex justify-between items-start mb-4 gap-4">
+              <div className="flex-1">
+                <input 
+                  type="text" 
+                  value={newQuestionData.question}
+                  onChange={e => setNewQuestionData({...newQuestionData, question: e.target.value})}
+                  className="w-full bg-background border border-borderMain rounded-md p-2 text-lg font-medium text-white focus:outline-none focus:border-primary"
+                  placeholder="Question title..."
+                />
+              </div>
+              <div className="w-48">
+                <select 
+                  value={newQuestionData.categoryId}
+                  onChange={e => setNewQuestionData({...newQuestionData, categoryId: e.target.value})}
+                  className="w-full bg-background border border-borderMain rounded-md p-2 text-sm text-white focus:outline-none focus:border-primary"
+                >
+                  <option value="">Select a category...</option>
+                  {categories.map(c => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div className="bg-background rounded-md p-4 border border-borderMain flex flex-col">
+                <span className="text-xs font-semibold text-emerald-400 uppercase mb-2 block">Response (Expected Answer)</span>
+                <textarea 
+                  value={newQuestionData.expectedAnswer}
+                  onChange={e => setNewQuestionData({...newQuestionData, expectedAnswer: e.target.value})}
+                  className="w-full flex-1 min-h-[150px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                  placeholder="The correct response..."
+                />
+              </div>
+              <div className="space-y-4 flex flex-col">
+                <div className="bg-background rounded-md p-4 border border-borderMain flex-1 flex flex-col">
+                  <span className="text-xs font-semibold text-indigo-400 uppercase mb-2 block">Key Points</span>
+                  <textarea 
+                    value={newQuestionData.keyPoints}
+                    onChange={e => setNewQuestionData({...newQuestionData, keyPoints: e.target.value})}
+                    className="w-full flex-1 min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                    placeholder="Must mention X, Y, and Z..."
+                  />
+                </div>
+                <div className="bg-background rounded-md p-4 border border-borderMain flex-1 flex flex-col">
+                  <span className="text-xs font-semibold text-amber-400 uppercase mb-2 block">Expected Resources</span>
+                  <textarea 
+                    value={newQuestionData.expectedResources}
+                    onChange={e => setNewQuestionData({...newQuestionData, expectedResources: e.target.value})}
+                    className="w-full flex-1 min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                    placeholder="AMM Chapter 12..."
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-borderMain">
+              <button 
+                onClick={() => {
+                  setIsCreatingNew(false);
+                  setEditingQuestionId(null);
+                }}
+                className="px-4 py-2 text-sm font-medium text-textMuted hover:text-white transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleAddOrUpdateQuestion}
+                className="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Save Question
+              </button>
+            </div>
+          </div>
+        )}
         {questions.map(q => {
+          if (editingQuestionId === q.id) {
+            return (
+              <div key={`edit-${q.id}`} className="bg-surface border border-primary rounded-lg p-5 hover:border-primary/50 transition-colors">
+                <div className="flex justify-between items-start mb-4 gap-4">
+                  <div className="flex-1">
+                    <input 
+                      type="text" 
+                      value={newQuestionData.question}
+                      onChange={e => setNewQuestionData({...newQuestionData, question: e.target.value})}
+                      className="w-full bg-background border border-borderMain rounded-md p-2 text-lg font-medium text-white focus:outline-none focus:border-primary"
+                      placeholder="Question title..."
+                    />
+                  </div>
+                  <div className="w-48">
+                    <select 
+                      value={newQuestionData.categoryId}
+                      onChange={e => setNewQuestionData({...newQuestionData, categoryId: e.target.value})}
+                      className="w-full bg-background border border-borderMain rounded-md p-2 text-sm text-white focus:outline-none focus:border-primary"
+                    >
+                      <option value="">Select a category...</option>
+                      {categories.map(c => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  <div className="bg-background rounded-md p-4 border border-borderMain flex flex-col">
+                    <span className="text-xs font-semibold text-emerald-400 uppercase mb-2 block">Response (Expected Answer)</span>
+                    <textarea 
+                      value={newQuestionData.expectedAnswer}
+                      onChange={e => setNewQuestionData({...newQuestionData, expectedAnswer: e.target.value})}
+                      className="w-full flex-1 min-h-[150px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                      placeholder="The correct response..."
+                    />
+                  </div>
+                  <div className="space-y-4 flex flex-col">
+                    <div className="bg-background rounded-md p-4 border border-borderMain flex-1 flex flex-col">
+                      <span className="text-xs font-semibold text-indigo-400 uppercase mb-2 block">Key Points</span>
+                      <textarea 
+                        value={newQuestionData.keyPoints}
+                        onChange={e => setNewQuestionData({...newQuestionData, keyPoints: e.target.value})}
+                        className="w-full flex-1 min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                        placeholder="Must mention X, Y, and Z..."
+                      />
+                    </div>
+                    <div className="bg-background rounded-md p-4 border border-borderMain flex-1 flex flex-col">
+                      <span className="text-xs font-semibold text-amber-400 uppercase mb-2 block">Expected Resources</span>
+                      <textarea 
+                        value={newQuestionData.expectedResources}
+                        onChange={e => setNewQuestionData({...newQuestionData, expectedResources: e.target.value})}
+                        className="w-full flex-1 min-h-[80px] bg-surface border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-y"
+                        placeholder="AMM Chapter 12..."
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-borderMain">
+                  <button 
+                    onClick={() => {
+                      setIsCreatingNew(false);
+                      setEditingQuestionId(null);
+                    }}
+                    className="px-4 py-2 text-sm font-medium text-textMuted hover:text-white transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    onClick={handleAddOrUpdateQuestion}
+                    className="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-md text-sm font-medium transition-colors"
+                  >
+                    Update Question
+                  </button>
+                </div>
+              </div>
+            );
+          }
+
           const cat = categories.find(c => c.id === q.categoryId) || categories.find(c => c.name === q.categoryId);
           return (
             <div key={q.id} className="bg-surface border border-borderMain rounded-lg p-5 hover:border-primary/50 transition-colors">
@@ -331,84 +490,7 @@ export function QuestionsManager() {
         )}
       </div>
 
-      {/* New Question Modal */}
-      {isNewQuestionModalOpen && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 backdrop-blur-sm">
-          <div className="bg-surface border border-borderMain rounded-lg shadow-2xl w-full max-w-2xl p-6 max-h-[90vh] flex flex-col">
-            <h2 className="text-lg font-bold text-white mb-4">{editingQuestionId ? 'Edit Question' : 'Add New Question'}</h2>
-            
-            <div className="space-y-4 overflow-y-auto pr-2 flex-1">
-              <div>
-                <label className="block text-sm font-medium text-textMuted mb-1">Question</label>
-                <input 
-                  type="text" 
-                  value={newQuestionData.question}
-                  onChange={e => setNewQuestionData({...newQuestionData, question: e.target.value})}
-                  className="w-full bg-background border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary"
-                  placeholder="e.g. What is the procedure for..."
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-textMuted mb-1">Category (Tag)</label>
-                <select 
-                  value={newQuestionData.categoryId}
-                  onChange={e => setNewQuestionData({...newQuestionData, categoryId: e.target.value})}
-                  className="w-full bg-background border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary"
-                >
-                  <option value="">Select a category...</option>
-                  {categories.map(c => (
-                    <option key={c.id} value={c.id}>{c.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-textMuted mb-1">Response (Expected Answer)</label>
-                <textarea 
-                  value={newQuestionData.expectedAnswer}
-                  onChange={e => setNewQuestionData({...newQuestionData, expectedAnswer: e.target.value})}
-                  className="w-full h-20 bg-background border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-none"
-                  placeholder="The correct response..."
-                />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-textMuted mb-1">Key Points</label>
-                  <textarea 
-                    value={newQuestionData.keyPoints}
-                    onChange={e => setNewQuestionData({...newQuestionData, keyPoints: e.target.value})}
-                    className="w-full h-20 bg-background border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-none"
-                    placeholder="Must mention X, Y, and Z..."
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-textMuted mb-1">Expected Resources</label>
-                  <textarea 
-                    value={newQuestionData.expectedResources}
-                    onChange={e => setNewQuestionData({...newQuestionData, expectedResources: e.target.value})}
-                    className="w-full h-20 bg-background border border-borderMain rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-primary resize-none"
-                    placeholder="AMM Chapter 12..."
-                  />
-                </div>
-              </div>
-            </div>
 
-            <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-borderMain">
-              <button 
-                onClick={() => setIsNewQuestionModalOpen(false)}
-                className="px-4 py-2 text-sm font-medium text-textMuted hover:text-white transition-colors"
-              >
-                Cancel
-              </button>
-              <button 
-                onClick={handleAddOrUpdateQuestion}
-                className="bg-primary hover:bg-primaryHover text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
-              >
-                {editingQuestionId ? 'Update Question' : 'Save Question'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Delete Confirmation Modal */}
       {questionToDelete && (
