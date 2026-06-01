@@ -194,20 +194,24 @@ export function QuestionsManager() {
           <p className="text-textMuted text-sm">Create, tag, and export questions with their expected resolutions.</p>
         </div>
         <div className="flex gap-3">
-          <input 
-            type="file" 
-            accept=".xlsx" 
-            className="hidden" 
-            ref={fileInputRef}
-            onChange={handleFileUpload}
-          />
-          <button 
-            onClick={() => fileInputRef.current?.click()}
-            className="border border-borderMain hover:bg-surfaceHover text-textMain px-4 py-2 rounded-md transition-colors flex items-center text-sm font-medium"
-          >
-            <Upload className="w-4 h-4 mr-2" />
-            Import Excel
-          </button>
+          {import.meta.env.DEV && (
+            <>
+              <input 
+                type="file" 
+                accept=".xlsx" 
+                className="hidden" 
+                ref={fileInputRef}
+                onChange={handleFileUpload}
+              />
+              <button 
+                onClick={() => fileInputRef.current?.click()}
+                className="border border-borderMain hover:bg-surfaceHover text-textMain px-4 py-2 rounded-md transition-colors flex items-center text-sm font-medium"
+              >
+                <Upload className="w-4 h-4 mr-2" />
+                Import Excel
+              </button>
+            </>
+          )}
           <button 
             onClick={handleExportExcel}
             className="border border-borderMain hover:bg-surfaceHover text-textMain px-4 py-2 rounded-md transition-colors flex items-center text-sm font-medium"
