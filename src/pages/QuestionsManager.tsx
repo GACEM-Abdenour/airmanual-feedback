@@ -7,7 +7,12 @@ import { CopyButton } from '../components/CopyButton';
 import type { GlobalSettings } from '../types';
 
 export function QuestionsManager() {
-  const { questions, categories, globalSettings, addQuestion, updateQuestion, deleteQuestion, importExcelData, toggleReaction, addComment } = useAppContext();
+  const { 
+    questions, categories, globalSettings, questionRequests, 
+    addQuestion, updateQuestion, deleteQuestion, 
+    importExcelData, importQuestionRequests, approveRequest, denyRequest, 
+    toggleReaction, addComment 
+  } = useAppContext();
   
   const [isCreatingNew, setIsCreatingNew] = useState(false);
   const [editingQuestionId, setEditingQuestionId] = useState<string | null>(null);
@@ -21,6 +26,7 @@ export function QuestionsManager() {
   });
   
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRefRequests = useRef<HTMLInputElement>(null);
 
   const handleAddOrUpdateQuestion = () => {
     if (!newQuestionData.question.trim()) return;
@@ -186,6 +192,43 @@ export function QuestionsManager() {
     }
   };
 
+  const handleFileUploadRequests = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      const bstr = evt.target?.result;
+      const wb = XLSX.read(bstr, { type: 'binary' });
+
+      // Parse Questions
+      let importedQuestions: any[] = [];
+      if (wb.SheetNames.includes('Questions')) {
+        const qsSheet = wb.Sheets['Questions'];
+        const rawQs = XLSX.utils.sheet_to_json<any>(qsSheet);
+        importedQuestions = rawQs.map(row => ({
+          id: `req-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+          question: row.question || '',
+          expectedAnswer: row.response || '',
+          keyPoints: row['key point of the answer'] || '',
+          expectedResources: row['expected resources'] || '',
+          categoryId: row.categoryId || '',
+          likes: parseInt(row.likes) || 0,
+          dislikes: parseInt(row.dislikes) || 0,
+          userReaction: undefined,
+          comments: []
+        }));
+      }
+
+      importQuestionRequests(importedQuestions);
+    };
+    reader.readAsBinaryString(file);
+    
+    if (fileInputRefRequests.current) {
+      fileInputRefRequests.current.value = '';
+    }
+  };
+
   return (
     <div className="h-[calc(100vh-6rem)] flex flex-col">
       <div className="flex justify-between items-end border-b border-borderMain pb-4 mb-6">
@@ -194,7 +237,7 @@ export function QuestionsManager() {
           <p className="text-textMuted text-sm">Create, tag, and export questions with their expected resolutions.</p>
         </div>
         <div className="flex gap-3">
-          {import.meta.env.DEV && (
+          {import.meta.env.DEV ? (
             <>
               <input 
                 type="file" 
@@ -205,10 +248,27 @@ export function QuestionsManager() {
               />
               <button 
                 onClick={() => fileInputRef.current?.click()}
+                className="border border-emerald-500/50 hover:bg-emerald-500/10 text-emerald-400 px-4 py-2 rounded-md transition-colors flex items-center text-sm font-medium"
+              >
+                <Upload className="w-4 h-4 mr-2" />
+                Import Excel (Admin)
+              </button>
+            </>
+          ) : (
+            <>
+              <input 
+                type="file" 
+                accept=".xlsx" 
+                className="hidden" 
+                ref={fileInputRefRequests}
+                onChange={handleFileUploadRequests}
+              />
+              <button 
+                onClick={() => fileInputRefRequests.current?.click()}
                 className="border border-borderMain hover:bg-surfaceHover text-textMain px-4 py-2 rounded-md transition-colors flex items-center text-sm font-medium"
               >
                 <Upload className="w-4 h-4 mr-2" />
-                Import Excel
+                Suggest Questions (Excel)
               </button>
             </>
           )}
@@ -241,6 +301,58 @@ export function QuestionsManager() {
 
       {/* Questions List */}
       <div className="flex-1 overflow-y-auto space-y-4 pb-10">
+        
+        {import.meta.env.DEV && questionRequests.length > 0 && (
+          <div className="mb-8 border border-amber-500/30 rounded-lg p-5 bg-amber-500/5">
+            <h2 className="text-lg font-bold text-amber-500 mb-4 flex items-center">
+              <AlertCircle className="w-5 h-5 mr-2" />
+              Incoming Requests ({questionRequests.length})
+            </h2>
+            <div className="space-y-4">
+              {questionRequests.map(req => {
+                const cat = categories.find(c => c.id === req.categoryId) || categories.find(c => c.name === req.categoryId);
+                return (
+                  <div key={req.id} className="bg-surface border border-amber-500/30 rounded-lg p-5">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex items-start flex-1 pr-4">
+                        <h3 className="text-lg font-medium text-white">{req.question}</h3>
+                        <span className="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-1 rounded text-xs font-medium whitespace-nowrap ml-4 mt-1">
+                          {cat?.name || req.categoryId || 'Untagged'}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button onClick={() => approveRequest(req.id)} className="bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1.5 rounded text-sm font-medium transition-colors">
+                          Approve
+                        </button>
+                        <button onClick={() => denyRequest(req.id)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded text-sm font-medium transition-colors">
+                          Deny
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-background rounded-md p-4 border border-borderMain">
+                        <span className="text-xs font-semibold text-emerald-400 uppercase block mb-2">Suggested Response</span>
+                        <p className="text-sm text-textMain whitespace-pre-wrap">{req.expectedAnswer}</p>
+                      </div>
+                      <div className="space-y-4">
+                        <div className="bg-background rounded-md p-4 border border-borderMain">
+                          <span className="text-xs font-semibold text-indigo-400 uppercase block mb-2">Key Points</span>
+                          <p className="text-sm text-textMain whitespace-pre-wrap">{req.keyPoints}</p>
+                        </div>
+                        <div className="bg-background rounded-md p-4 border border-borderMain">
+                          <span className="text-xs font-semibold text-amber-400 uppercase block mb-2">Expected Resources</span>
+                          <p className="text-sm text-textMain whitespace-pre-wrap">{req.expectedResources}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {isCreatingNew && (
           <div className="bg-surface border border-primary rounded-lg p-5 mb-4 shadow-lg ring-1 ring-primary/20">
             <div className="flex justify-between items-start mb-4 gap-4">

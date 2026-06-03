@@ -7,10 +7,14 @@ interface AppContextType {
   questions: QuestionEntry[];
   categories: CategoryTag[];
   globalSettings: GlobalSettings;
+  questionRequests: QuestionEntry[];
   addQuestion: (q: QuestionEntry) => void;
   updateQuestion: (q: QuestionEntry) => void;
   deleteQuestion: (id: string) => void;
   importExcelData: (cats: CategoryTag[], qs: QuestionEntry[], sets?: GlobalSettings) => void;
+  importQuestionRequests: (qs: QuestionEntry[]) => void;
+  approveRequest: (id: string) => void;
+  denyRequest: (id: string) => void;
   toggleReaction: (questionId: string, reaction: 'like' | 'dislike') => void;
   addComment: (questionId: string, author: string, text: string) => void;
   addCategory: (c: CategoryTag) => void;
@@ -23,6 +27,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export function AppProvider({ children }: { children: ReactNode }) {
   const [questions, setQuestions] = useState<QuestionEntry[]>([]);
   const [categories, setCategories] = useState<CategoryTag[]>([]);
+  const [questionRequests, setQuestionRequests] = useState<QuestionEntry[]>([]);
   const [globalSettings, setGlobalSettings] = useState<GlobalSettings>({
     generalRules: '', redlines: '', expectedSchema: ''
   });
@@ -47,6 +52,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
           expectedSchema: sets.expectedSchema || ''
         });
       }
+
+      const { data: reqs, error: reqsErr } = await supabase.from('question_requests').select('*').order('id', { ascending: false });
+      if (reqsErr && reqsErr.code !== '42P01') console.error('Fetch requests error:', reqsErr); // Ignore relation does not exist
+      if (reqs) setQuestionRequests(reqs);
     };
     fetchData();
   }, []);
@@ -100,6 +109,42 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const { error } = await supabase.from('questions').upsert(newQuestions);
       if (error) console.error('Upsert questions error:', error);
     }
+  };
+
+  const importQuestionRequests = async (newRequests: QuestionEntry[]) => {
+    // Generate new unique IDs so they don't overwrite existing questions
+    const sanitizedRequests = newRequests.map(req => ({
+      ...req,
+      id: `req-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+    }));
+    
+    setQuestionRequests([...sanitizedRequests, ...questionRequests]);
+    if (sanitizedRequests.length > 0) {
+      const { error } = await supabase.from('question_requests').upsert(sanitizedRequests);
+      if (error) console.error('Upsert requests error:', error);
+    }
+  };
+
+  const approveRequest = async (id: string) => {
+    const reqToApprove = questionRequests.find(r => r.id === id);
+    if (!reqToApprove) return;
+    
+    // Generate real question ID
+    const newQuestion = {
+      ...reqToApprove,
+      id: `q-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+    };
+    
+    setQuestionRequests(questionRequests.filter(r => r.id !== id));
+    setQuestions([newQuestion, ...questions]);
+    
+    await supabase.from('question_requests').delete().eq('id', id);
+    await supabase.from('questions').insert([newQuestion]);
+  };
+
+  const denyRequest = async (id: string) => {
+    setQuestionRequests(questionRequests.filter(r => r.id !== id));
+    await supabase.from('question_requests').delete().eq('id', id);
   };
 
   const toggleReaction = async (questionId: string, reaction: 'like' | 'dislike') => {
@@ -192,10 +237,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
       questions,
       categories,
       globalSettings,
+      questionRequests,
       addQuestion,
       updateQuestion,
       deleteQuestion,
       importExcelData,
+      importQuestionRequests,
+      approveRequest,
+      denyRequest,
       toggleReaction,
       addComment,
       addCategory,
