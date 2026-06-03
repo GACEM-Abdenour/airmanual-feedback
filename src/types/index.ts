@@ -19,7 +19,7 @@ export interface QuestionEntry {
   expectedAnswer: string; // Maps to "response"
   keyPoints: string;
   expectedResources: string;
-  categoryId: string; // The Tag
+  categoryId: string | null; // The Tag
   likes: number;
   dislikes: number;
   userReaction?: 'like' | 'dislike';

@@ -62,14 +62,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addQuestion = async (q: QuestionEntry) => {
-    setQuestions([q, ...questions]);
-    const { error } = await supabase.from('questions').insert([q]);
+    const sanitized = { ...q, categoryId: categories.some(c => c.id === q.categoryId) ? q.categoryId : null };
+    setQuestions([sanitized, ...questions]);
+    const { error } = await supabase.from('questions').insert([sanitized]);
     if (error) console.error('Add question error:', error);
   };
   
   const updateQuestion = async (updatedQ: QuestionEntry) => {
-    setQuestions(questions.map(q => q.id === updatedQ.id ? updatedQ : q));
-    const { error } = await supabase.from('questions').update(updatedQ).eq('id', updatedQ.id);
+    const sanitized = { ...updatedQ, categoryId: categories.some(c => c.id === updatedQ.categoryId) ? updatedQ.categoryId : null };
+    setQuestions(questions.map(q => q.id === sanitized.id ? sanitized : q));
+    const { error } = await supabase.from('questions').update(sanitized).eq('id', sanitized.id);
     if (error) console.error('Update question error:', error);
   };
 
@@ -88,8 +90,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     });
     setCategories(mergedCats);
 
+    const sanitizedQs = newQuestions.map(q => ({
+      ...q,
+      categoryId: mergedCats.some(c => c.id === q.categoryId) ? q.categoryId : null
+    }));
+
     const mergedQs = [...questions];
-    newQuestions.forEach(nq => {
+    sanitizedQs.forEach(nq => {
       const idx = mergedQs.findIndex(q => q.id === nq.id);
       if (idx !== -1) mergedQs[idx] = nq;
       else mergedQs.unshift(nq);
@@ -106,8 +113,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const { error } = await supabase.from('categories').upsert(newCategories);
       if (error) console.error('Upsert categories error:', error);
     }
-    if (newQuestions.length > 0) {
-      const { error } = await supabase.from('questions').upsert(newQuestions);
+    if (sanitizedQs.length > 0) {
+      const { error } = await supabase.from('questions').upsert(sanitizedQs);
       if (error) console.error('Upsert questions error:', error);
     }
   };
@@ -134,6 +141,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // Generate real question ID
     const newQuestion = {
       ...restOfReq,
+      categoryId: categories.some(c => c.id === restOfReq.categoryId) ? restOfReq.categoryId : null,
       id: `q-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
     };
     
@@ -151,6 +159,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const { suggestedBy, ...rest } = req;
       return {
         ...rest,
+        categoryId: categories.some(c => c.id === rest.categoryId) ? rest.categoryId : null,
         id: `q-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
       };
     });
