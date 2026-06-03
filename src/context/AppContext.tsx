@@ -130,9 +130,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const reqToApprove = questionRequests.find(r => r.id === id);
     if (!reqToApprove) return;
     
+    const { suggestedBy, ...restOfReq } = reqToApprove;
     // Generate real question ID
     const newQuestion = {
-      ...reqToApprove,
+      ...restOfReq,
       id: `q-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
     };
     
@@ -146,10 +147,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const approveAllRequests = async () => {
     if (questionRequests.length === 0) return;
 
-    const newQuestions = questionRequests.map(req => ({
-      ...req,
-      id: `q-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
-    }));
+    const newQuestions = questionRequests.map(req => {
+      const { suggestedBy, ...rest } = req;
+      return {
+        ...rest,
+        id: `q-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+      };
+    });
 
     // Clear requests locally
     setQuestionRequests([]);
