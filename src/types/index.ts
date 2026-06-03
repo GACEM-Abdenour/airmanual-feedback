@@ -24,6 +24,7 @@ export interface QuestionEntry {
   dislikes: number;
   userReaction?: 'like' | 'dislike';
   comments: Comment[];
+  suggestedBy?: string; // Used for incoming requests
 }
 
 export interface GlobalSettings {

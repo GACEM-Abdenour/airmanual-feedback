@@ -56,7 +56,8 @@ CREATE TABLE question_requests (
   likes INTEGER DEFAULT 0,
   dislikes INTEGER DEFAULT 0,
   "userReaction" TEXT,
-  comments JSONB DEFAULT '[]'::jsonb
+  comments JSONB DEFAULT '[]'::jsonb,
+  "suggestedBy" TEXT
 );
 
 ALTER TABLE question_requests ENABLE ROW LEVEL SECURITY;

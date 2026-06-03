@@ -14,6 +14,7 @@ interface AppContextType {
   importExcelData: (cats: CategoryTag[], qs: QuestionEntry[], sets?: GlobalSettings) => void;
   importQuestionRequests: (qs: QuestionEntry[]) => void;
   approveRequest: (id: string) => void;
+  approveAllRequests: () => void;
   denyRequest: (id: string) => void;
   toggleReaction: (questionId: string, reaction: 'like' | 'dislike') => void;
   addComment: (questionId: string, author: string, text: string) => void;
@@ -142,6 +143,26 @@ export function AppProvider({ children }: { children: ReactNode }) {
     await supabase.from('questions').insert([newQuestion]);
   };
 
+  const approveAllRequests = async () => {
+    if (questionRequests.length === 0) return;
+
+    const newQuestions = questionRequests.map(req => ({
+      ...req,
+      id: `q-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+    }));
+
+    // Clear requests locally
+    setQuestionRequests([]);
+    // Add all to questions locally
+    setQuestions([...newQuestions, ...questions]);
+
+    // Delete all from requests table
+    const requestIds = questionRequests.map(r => r.id);
+    await supabase.from('question_requests').delete().in('id', requestIds);
+    // Insert all to questions table
+    await supabase.from('questions').insert(newQuestions);
+  };
+
   const denyRequest = async (id: string) => {
     setQuestionRequests(questionRequests.filter(r => r.id !== id));
     await supabase.from('question_requests').delete().eq('id', id);
@@ -244,6 +265,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       importExcelData,
       importQuestionRequests,
       approveRequest,
+      approveAllRequests,
       denyRequest,
       toggleReaction,
       addComment,

@@ -10,7 +10,7 @@ export function QuestionsManager() {
   const { 
     questions, categories, globalSettings, questionRequests, 
     addQuestion, updateQuestion, deleteQuestion, 
-    importExcelData, importQuestionRequests, approveRequest, denyRequest, 
+    importExcelData, importQuestionRequests, approveRequest, approveAllRequests, denyRequest, 
     toggleReaction, addComment 
   } = useAppContext();
   
@@ -170,7 +170,7 @@ export function QuestionsManager() {
         const qsSheet = wb.Sheets['Questions'];
         const rawQs = XLSX.utils.sheet_to_json<any>(qsSheet);
         importedQuestions = rawQs.map(row => ({
-          id: row.id || `q-${Date.now()}-${Math.random()}`,
+          id: `q-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
           question: row.question || '',
           expectedAnswer: row.response || '',
           keyPoints: row['key point of the answer'] || '',
@@ -196,6 +196,12 @@ export function QuestionsManager() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const uploaderName = window.prompt("Please enter your name (optional) to submit these questions:");
+    if (uploaderName === null) {
+      if (fileInputRefRequests.current) fileInputRefRequests.current.value = '';
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = (evt) => {
       const bstr = evt.target?.result;
@@ -216,7 +222,8 @@ export function QuestionsManager() {
           likes: parseInt(row.likes) || 0,
           dislikes: parseInt(row.dislikes) || 0,
           userReaction: undefined,
-          comments: []
+          comments: [],
+          suggestedBy: uploaderName.trim() || 'Anonymous'
         }));
       }
 
@@ -304,10 +311,18 @@ export function QuestionsManager() {
         
         {import.meta.env.DEV && questionRequests.length > 0 && (
           <div className="mb-8 border border-amber-500/30 rounded-lg p-5 bg-amber-500/5">
-            <h2 className="text-lg font-bold text-amber-500 mb-4 flex items-center">
-              <AlertCircle className="w-5 h-5 mr-2" />
-              Incoming Requests ({questionRequests.length})
-            </h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-bold text-amber-500 flex items-center">
+                <AlertCircle className="w-5 h-5 mr-2" />
+                Incoming Requests ({questionRequests.length})
+              </h2>
+              <button 
+                onClick={approveAllRequests}
+                className="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Approve All
+              </button>
+            </div>
             <div className="space-y-4">
               {questionRequests.map(req => {
                 const cat = categories.find(c => c.id === req.categoryId) || categories.find(c => c.name === req.categoryId);
@@ -315,7 +330,12 @@ export function QuestionsManager() {
                   <div key={req.id} className="bg-surface border border-amber-500/30 rounded-lg p-5">
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex items-start flex-1 pr-4">
-                        <h3 className="text-lg font-medium text-white">{req.question}</h3>
+                        <div className="flex flex-col">
+                          <h3 className="text-lg font-medium text-white">{req.question}</h3>
+                          {req.suggestedBy && (
+                            <span className="text-xs text-amber-500 mt-1">Suggested by: {req.suggestedBy}</span>
+                          )}
+                        </div>
                         <span className="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-1 rounded text-xs font-medium whitespace-nowrap ml-4 mt-1">
                           {cat?.name || req.categoryId || 'Untagged'}
                         </span>
