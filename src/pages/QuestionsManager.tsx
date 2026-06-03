@@ -67,7 +67,7 @@ export function QuestionsManager() {
       expectedAnswer: q.expectedAnswer,
       keyPoints: q.keyPoints,
       expectedResources: q.expectedResources,
-      categoryId: q.categoryId
+      categoryId: q.categoryId || ''
     });
     setEditingQuestionId(q.id);
     setIsCreatingNew(false);
