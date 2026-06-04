@@ -6,7 +6,18 @@ CREATE TABLE categories (
   name TEXT NOT NULL,
   "specificRules" TEXT,
   redlines TEXT,
-  "expectedSchema" TEXT
+  "expectedSchema" TEXT,
+  "whenToUse" TEXT,
+  "checksBeforeAnswering" TEXT,
+  "primaryResources" TEXT,
+  "mandatoryMentions" TEXT,
+  avoidances TEXT,
+  "followUpTriggers" TEXT,
+  "escalationTriggers" TEXT,
+  "uncertaintyHandling" TEXT,
+  "answerStyle" TEXT,
+  "exampleQuestions" TEXT,
+  "expectedKeyPoints" TEXT
 );
 
 -- 2. Create Questions table

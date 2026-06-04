@@ -103,10 +103,21 @@ export function QuestionsManager() {
     // Categories Sheet
     const globalRow = {
       id: 'global',
-      name: 'Global Settings (Category 0)',
+      name: 'Global Settings (Task Type 0)',
       'specific rules': globalSettings.generalRules,
       redlines: globalSettings.redlines,
-      'expected schema': globalSettings.expectedSchema
+      'expected schema': globalSettings.expectedSchema,
+      'when to use': '',
+      'checks before answering': '',
+      'primary resources': '',
+      'mandatory mentions': '',
+      'avoidances': '',
+      'follow up triggers': '',
+      'escalation triggers': '',
+      'uncertainty handling': '',
+      'answer style': '',
+      'example questions': '',
+      'expected key points': ''
     };
 
     const catData = [
@@ -116,14 +127,25 @@ export function QuestionsManager() {
         name: c.name,
         'specific rules': c.specificRules,
         redlines: c.redlines,
-        'expected schema': c.expectedSchema
+        'expected schema': c.expectedSchema,
+        'when to use': c.whenToUse,
+        'checks before answering': c.checksBeforeAnswering,
+        'primary resources': c.primaryResources,
+        'mandatory mentions': c.mandatoryMentions,
+        'avoidances': c.avoidances,
+        'follow up triggers': c.followUpTriggers,
+        'escalation triggers': c.escalationTriggers,
+        'uncertainty handling': c.uncertaintyHandling,
+        'answer style': c.answerStyle,
+        'example questions': c.exampleQuestions,
+        'expected key points': c.expectedKeyPoints
       }))
     ];
     const catSheet = XLSX.utils.json_to_sheet(catData);
 
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, qsSheet, "Questions");
-    XLSX.utils.book_append_sheet(wb, catSheet, "Categories");
+    XLSX.utils.book_append_sheet(wb, catSheet, "Engineering Task Types");
 
     XLSX.writeFile(wb, "AeroMind_Data.xlsx");
   };
@@ -141,8 +163,9 @@ export function QuestionsManager() {
       let importedCategories: any[] = [];
       let importedGlobalSettings: GlobalSettings | undefined;
 
-      if (wb.SheetNames.includes('Categories')) {
-        const catSheet = wb.Sheets['Categories'];
+      if (wb.SheetNames.includes('Engineering Task Types') || wb.SheetNames.includes('Categories')) {
+        const sheetName = wb.SheetNames.includes('Engineering Task Types') ? 'Engineering Task Types' : 'Categories';
+        const catSheet = wb.Sheets[sheetName];
         const rawCats = XLSX.utils.sheet_to_json<any>(catSheet);
         
         rawCats.forEach(row => {
@@ -155,10 +178,21 @@ export function QuestionsManager() {
           } else {
             importedCategories.push({
               id: row.id || `cat-${Date.now()}-${Math.random()}`,
-              name: row.name || 'Unnamed Category',
+              name: row.name || 'Unnamed Task Type',
               specificRules: row['specific rules'] || '',
               redlines: row.redlines || '',
-              expectedSchema: row['expected schema'] || ''
+              expectedSchema: row['expected schema'] || '',
+              whenToUse: row['when to use'] || '',
+              checksBeforeAnswering: row['checks before answering'] || '',
+              primaryResources: row['primary resources'] || '',
+              mandatoryMentions: row['mandatory mentions'] || '',
+              avoidances: row.avoidances || '',
+              followUpTriggers: row['follow up triggers'] || '',
+              escalationTriggers: row['escalation triggers'] || '',
+              uncertaintyHandling: row['uncertainty handling'] || '',
+              answerStyle: row['answer style'] || '',
+              exampleQuestions: row['example questions'] || '',
+              expectedKeyPoints: row['expected key points'] || ''
             });
           }
         });
@@ -391,7 +425,7 @@ export function QuestionsManager() {
                   onChange={e => setNewQuestionData({...newQuestionData, categoryId: e.target.value})}
                   className="w-full bg-background border border-borderMain rounded-md p-2 text-sm text-white focus:outline-none focus:border-primary"
                 >
-                  <option value="">Select a category...</option>
+                  <option value="">Select an Engineering Task Type...</option>
                   {categories.map(c => (
                     <option key={c.id} value={c.id}>{c.name}</option>
                   ))}
@@ -470,7 +504,7 @@ export function QuestionsManager() {
                       onChange={e => setNewQuestionData({...newQuestionData, categoryId: e.target.value})}
                       className="w-full bg-background border border-borderMain rounded-md p-2 text-sm text-white focus:outline-none focus:border-primary"
                     >
-                      <option value="">Select a category...</option>
+                      <option value="">Select an Engineering Task Type...</option>
                       {categories.map(c => (
                         <option key={c.id} value={c.id}>{c.name}</option>
                       ))}

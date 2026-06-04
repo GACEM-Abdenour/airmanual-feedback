@@ -6,7 +6,7 @@ import {
 
 const navItems = [
   { name: 'Questions Manager', path: '/', icon: Library },
-  { name: 'Rules & Categories', path: '/global-rules', icon: Settings }
+  { name: 'Task Policies', path: '/global-rules', icon: Settings }
 ];
 
 export function Sidebar() {

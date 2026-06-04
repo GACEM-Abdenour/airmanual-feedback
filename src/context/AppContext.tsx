@@ -19,6 +19,7 @@ interface AppContextType {
   toggleReaction: (questionId: string, reaction: 'like' | 'dislike') => void;
   addComment: (questionId: string, author: string, text: string) => void;
   addCategory: (c: CategoryTag) => void;
+  updateCategory: (c: CategoryTag) => void;
   deleteCategory: (id: string) => void;
   updateSettings: (s: GlobalSettings) => void;
 }
@@ -254,6 +255,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (error) console.error('Add category error:', error);
   };
   
+  const updateCategory = async (updatedC: CategoryTag) => {
+    setCategories(categories.map(c => c.id === updatedC.id ? updatedC : c));
+    const { error } = await supabase.from('categories').update(updatedC).eq('id', updatedC.id);
+    if (error) console.error('Update category error:', error);
+  };
+  
   const deleteCategory = async (id: string) => {
     setCategories(categories.filter(c => c.id !== id));
     const { error } = await supabase.from('categories').delete().eq('id', id);
@@ -283,6 +290,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       toggleReaction,
       addComment,
       addCategory,
+      updateCategory,
       deleteCategory,
       updateSettings
     }}>
