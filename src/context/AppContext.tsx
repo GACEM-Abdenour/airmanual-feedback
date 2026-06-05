@@ -63,14 +63,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addQuestion = async (q: QuestionEntry) => {
-    const sanitized = { ...q, categoryId: categories.some(c => c.id === q.categoryId) ? q.categoryId : null };
+    const matchingCat = categories.find(c => c.id === q.categoryId || (c.name && q.categoryId && c.name.toLowerCase() === q.categoryId.toLowerCase()));
+    const sanitized = { ...q, categoryId: matchingCat ? matchingCat.id : null };
     setQuestions([sanitized, ...questions]);
     const { error } = await supabase.from('questions').insert([sanitized]);
     if (error) console.error('Add question error:', error);
   };
   
   const updateQuestion = async (updatedQ: QuestionEntry) => {
-    const sanitized = { ...updatedQ, categoryId: categories.some(c => c.id === updatedQ.categoryId) ? updatedQ.categoryId : null };
+    const matchingCat = categories.find(c => c.id === updatedQ.categoryId || (c.name && updatedQ.categoryId && c.name.toLowerCase() === updatedQ.categoryId.toLowerCase()));
+    const sanitized = { ...updatedQ, categoryId: matchingCat ? matchingCat.id : null };
     setQuestions(questions.map(q => q.id === sanitized.id ? sanitized : q));
     const { error } = await supabase.from('questions').update(sanitized).eq('id', sanitized.id);
     if (error) console.error('Update question error:', error);
@@ -91,10 +93,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     });
     setCategories(mergedCats);
 
-    const sanitizedQs = newQuestions.map(q => ({
-      ...q,
-      categoryId: mergedCats.some(c => c.id === q.categoryId) ? q.categoryId : null
-    }));
+    const sanitizedQs = newQuestions.map(q => {
+      const matchingCat = mergedCats.find(c => c.id === q.categoryId || (c.name && q.categoryId && c.name.toLowerCase() === q.categoryId.toLowerCase()));
+      return {
+        ...q,
+        categoryId: matchingCat ? matchingCat.id : null
+      };
+    });
 
     const mergedQs = [...questions];
     sanitizedQs.forEach(nq => {
@@ -139,10 +144,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (!reqToApprove) return;
     
     const { suggestedBy, ...restOfReq } = reqToApprove;
+    const matchingCat = categories.find(c => c.id === restOfReq.categoryId || (c.name && restOfReq.categoryId && c.name.toLowerCase() === restOfReq.categoryId.toLowerCase()));
     // Generate real question ID
     const newQuestion = {
       ...restOfReq,
-      categoryId: categories.some(c => c.id === restOfReq.categoryId) ? restOfReq.categoryId : null,
+      categoryId: matchingCat ? matchingCat.id : null,
       id: `q-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
     };
     
@@ -158,9 +164,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     const newQuestions = questionRequests.map(req => {
       const { suggestedBy, ...rest } = req;
+      const matchingCat = categories.find(c => c.id === rest.categoryId || (c.name && rest.categoryId && c.name.toLowerCase() === rest.categoryId.toLowerCase()));
       return {
         ...rest,
-        categoryId: categories.some(c => c.id === rest.categoryId) ? rest.categoryId : null,
+        categoryId: matchingCat ? matchingCat.id : null,
         id: `q-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
       };
     });
