@@ -4,20 +4,15 @@
 CREATE TABLE categories (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
-  "specificRules" TEXT,
-  redlines TEXT,
-  "expectedSchema" TEXT,
-  "whenToUse" TEXT,
-  "checksBeforeAnswering" TEXT,
-  "primaryResources" TEXT,
-  "mandatoryMentions" TEXT,
-  avoidances TEXT,
-  "followUpTriggers" TEXT,
-  "escalationTriggers" TEXT,
-  "uncertaintyHandling" TEXT,
-  "answerStyle" TEXT,
-  "exampleQuestions" TEXT,
-  "expectedKeyPoints" TEXT
+  purpose TEXT,
+  category_rules TEXT,
+  category_redlines TEXT,
+  required_context TEXT,
+  escalation_triggers TEXT,
+  answer_structure TEXT,
+  example_question_guidance TEXT,
+  expected_key_points_guidance TEXT,
+  required_sources TEXT
 );
 
 -- 2. Create Questions table

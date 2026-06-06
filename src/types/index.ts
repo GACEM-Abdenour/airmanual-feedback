@@ -11,17 +11,15 @@ export interface CategoryTag {
   specificRules: string;
   redlines: string;
   expectedSchema: string;
-  whenToUse?: string;
-  checksBeforeAnswering?: string;
-  primaryResources?: string;
-  mandatoryMentions?: string;
-  avoidances?: string;
-  followUpTriggers?: string;
-  escalationTriggers?: string;
-  uncertaintyHandling?: string;
-  answerStyle?: string;
-  exampleQuestions?: string;
-  expectedKeyPoints?: string;
+  purpose?: string;
+  category_rules?: string;
+  category_redlines?: string;
+  required_context?: string;
+  escalation_triggers?: string;
+  answer_structure?: string;
+  example_question_guidance?: string;
+  expected_key_points_guidance?: string;
+  required_sources?: string;
 }
 
 export interface QuestionEntry {

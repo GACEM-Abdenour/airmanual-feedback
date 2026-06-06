@@ -17,17 +17,15 @@ export function GlobalRules() {
   const defaultTaskType: CategoryTag = {
     id: '',
     name: '',
-    whenToUse: '',
-    checksBeforeAnswering: '',
-    primaryResources: '',
-    mandatoryMentions: '',
-    avoidances: '',
-    followUpTriggers: '',
-    escalationTriggers: '',
-    uncertaintyHandling: '',
-    answerStyle: '',
-    exampleQuestions: '',
-    expectedKeyPoints: '',
+    purpose: '',
+    category_rules: '',
+    category_redlines: '',
+    required_context: '',
+    escalation_triggers: '',
+    answer_structure: '',
+    example_question_guidance: '',
+    expected_key_points_guidance: '',
+    required_sources: '',
     specificRules: '',
     redlines: '',
     expectedSchema: ''
@@ -52,17 +50,15 @@ export function GlobalRules() {
     setFormData({
       id: cat.id,
       name: cat.name || '',
-      whenToUse: cat.whenToUse || '',
-      checksBeforeAnswering: cat.checksBeforeAnswering || '',
-      primaryResources: cat.primaryResources || '',
-      mandatoryMentions: cat.mandatoryMentions || '',
-      avoidances: cat.avoidances || '',
-      followUpTriggers: cat.followUpTriggers || '',
-      escalationTriggers: cat.escalationTriggers || '',
-      uncertaintyHandling: cat.uncertaintyHandling || '',
-      answerStyle: cat.answerStyle || '',
-      exampleQuestions: cat.exampleQuestions || '',
-      expectedKeyPoints: cat.expectedKeyPoints || '',
+      purpose: cat.purpose || '',
+      category_rules: cat.category_rules || '',
+      category_redlines: cat.category_redlines || '',
+      required_context: cat.required_context || '',
+      escalation_triggers: cat.escalation_triggers || '',
+      answer_structure: cat.answer_structure || '',
+      example_question_guidance: cat.example_question_guidance || '',
+      expected_key_points_guidance: cat.expected_key_points_guidance || '',
+      required_sources: cat.required_sources || '',
       specificRules: cat.specificRules || '',
       redlines: cat.redlines || '',
       expectedSchema: cat.expectedSchema || ''
@@ -208,26 +204,32 @@ export function GlobalRules() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Snapshot of key fields to show on the card without cluttering */}
-                {cat.whenToUse && (
-                  <div>
-                    <p className="text-xs text-indigo-400 uppercase font-semibold mb-1">When to Use</p>
-                    <p className="text-sm text-textMuted line-clamp-3">{cat.whenToUse}</p>
+                {cat.purpose && (
+                  <div className="col-span-full mb-2">
+                    <p className="text-xs text-primary uppercase font-semibold mb-1">Purpose</p>
+                    <p className="text-sm text-white font-medium line-clamp-3">{cat.purpose}</p>
                   </div>
                 )}
-                {cat.checksBeforeAnswering && (
+                {cat.required_context && (
                   <div>
-                    <p className="text-xs text-emerald-400 uppercase font-semibold mb-1">Checks Before Answering</p>
-                    <p className="text-sm text-textMuted line-clamp-3">{cat.checksBeforeAnswering}</p>
+                    <p className="text-xs text-indigo-400 uppercase font-semibold mb-1">Required Context</p>
+                    <p className="text-sm text-textMuted line-clamp-3">{cat.required_context}</p>
                   </div>
                 )}
-                {cat.primaryResources && (
+                {cat.category_rules && (
                   <div>
-                    <p className="text-xs text-amber-400 uppercase font-semibold mb-1">Primary Resources</p>
-                    <p className="text-sm text-textMuted line-clamp-3">{cat.primaryResources}</p>
+                    <p className="text-xs text-emerald-400 uppercase font-semibold mb-1">Category Rules</p>
+                    <p className="text-sm text-textMuted line-clamp-3">{cat.category_rules}</p>
+                  </div>
+                )}
+                {cat.required_sources && (
+                  <div>
+                    <p className="text-xs text-amber-400 uppercase font-semibold mb-1">Required Sources</p>
+                    <p className="text-sm text-textMuted line-clamp-3">{cat.required_sources}</p>
                   </div>
                 )}
                 {/* Legacy fallback if new fields aren't populated yet */}
-                {!cat.whenToUse && !cat.checksBeforeAnswering && !cat.primaryResources && (
+                {!cat.purpose && !cat.required_context && !cat.category_rules && (
                   <>
                     <div>
                       <p className="text-xs text-indigo-400 uppercase font-semibold mb-1">Specific Rules (Legacy)</p>
@@ -269,105 +271,88 @@ export function GlobalRules() {
                   placeholder="e.g. Troubleshooting, Inspection, Logbook Analysis"
                 />
               </div>
+              
+              <div>
+                <label className="block text-sm font-semibold text-primary mb-2">Purpose</label>
+                <textarea 
+                  value={formData.purpose}
+                  onChange={e => setFormData({...formData, purpose: e.target.value})}
+                  className="w-full h-20 bg-background border border-primary/50 rounded-md p-3 text-sm text-white focus:outline-none focus:border-primary resize-none"
+                  placeholder="What is the high-level purpose of this category?"
+                />
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-indigo-400 mb-2">When should AeroMind use this?</label>
+                  <label className="block text-sm font-semibold text-indigo-400 mb-2">Category Rules</label>
                   <textarea 
-                    value={formData.whenToUse}
-                    onChange={e => setFormData({...formData, whenToUse: e.target.value})}
+                    value={formData.category_rules}
+                    onChange={e => setFormData({...formData, category_rules: e.target.value})}
                     className="w-full h-28 bg-background border border-borderMain rounded-md p-3 text-sm text-white focus:outline-none focus:border-indigo-500 resize-none"
-                    placeholder="Describe the scenario where this task type applies..."
+                    placeholder="Specific engineering rules for this task type..."
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-indigo-400 mb-2">What should AeroMind check before answering?</label>
+                  <label className="block text-sm font-semibold text-indigo-400 mb-2">Required Context</label>
                   <textarea 
-                    value={formData.checksBeforeAnswering}
-                    onChange={e => setFormData({...formData, checksBeforeAnswering: e.target.value})}
+                    value={formData.required_context}
+                    onChange={e => setFormData({...formData, required_context: e.target.value})}
                     className="w-full h-28 bg-background border border-borderMain rounded-md p-3 text-sm text-white focus:outline-none focus:border-indigo-500 resize-none"
-                    placeholder="List prerequisites, necessary context, or data to gather..."
+                    placeholder="What information is mandatory before answering?"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-emerald-400 mb-2">Which resources/manuals are most important?</label>
+                  <label className="block text-sm font-semibold text-emerald-400 mb-2">Required Sources</label>
                   <textarea 
-                    value={formData.primaryResources}
-                    onChange={e => setFormData({...formData, primaryResources: e.target.value})}
+                    value={formData.required_sources}
+                    onChange={e => setFormData({...formData, required_sources: e.target.value})}
                     className="w-full h-28 bg-background border border-borderMain rounded-md p-3 text-sm text-white focus:outline-none focus:border-emerald-500 resize-none"
-                    placeholder="AMM, IPC, specific chapters..."
+                    placeholder="e.g. AMM, IPC, MEL..."
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-emerald-400 mb-2">What should AeroMind always mention?</label>
+                  <label className="block text-sm font-semibold text-emerald-400 mb-2">Category Redlines</label>
                   <textarea 
-                    value={formData.mandatoryMentions}
-                    onChange={e => setFormData({...formData, mandatoryMentions: e.target.value})}
+                    value={formData.category_redlines}
+                    onChange={e => setFormData({...formData, category_redlines: e.target.value})}
                     className="w-full h-28 bg-background border border-borderMain rounded-md p-3 text-sm text-white focus:outline-none focus:border-emerald-500 resize-none"
-                    placeholder="Specific warnings, standard procedures..."
+                    placeholder="What must absolutely be avoided in this category?"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-red-400 mb-2">What should AeroMind avoid?</label>
+                  <label className="block text-sm font-semibold text-red-400 mb-2">Escalation Triggers</label>
                   <textarea 
-                    value={formData.avoidances}
-                    onChange={e => setFormData({...formData, avoidances: e.target.value})}
+                    value={formData.escalation_triggers}
+                    onChange={e => setFormData({...formData, escalation_triggers: e.target.value})}
                     className="w-full h-28 bg-background border border-borderMain rounded-md p-3 text-sm text-white focus:outline-none focus:border-red-500 resize-none"
-                    placeholder="Do not recommend bypassing safety checks..."
+                    placeholder="When should the AI stop and escalate?"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-red-400 mb-2">When should AeroMind escalate or warn the user?</label>
+                  <label className="block text-sm font-semibold text-amber-400 mb-2">Answer Structure</label>
                   <textarea 
-                    value={formData.escalationTriggers}
-                    onChange={e => setFormData({...formData, escalationTriggers: e.target.value})}
-                    className="w-full h-28 bg-background border border-borderMain rounded-md p-3 text-sm text-white focus:outline-none focus:border-red-500 resize-none"
-                    placeholder="e.g. If parts are missing, if structural damage is found..."
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-amber-400 mb-2">What should AeroMind do when information is missing or uncertain?</label>
-                  <textarea 
-                    value={formData.uncertaintyHandling}
-                    onChange={e => setFormData({...formData, uncertaintyHandling: e.target.value})}
+                    value={formData.answer_structure}
+                    onChange={e => setFormData({...formData, answer_structure: e.target.value})}
                     className="w-full h-28 bg-background border border-borderMain rounded-md p-3 text-sm text-white focus:outline-none focus:border-amber-500 resize-none"
-                    placeholder="e.g. State clearly that the manual must be consulted directly..."
+                    placeholder="Preferred format (bullet points, bold text, etc)..."
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-amber-400 mb-2">When should AeroMind ask follow-up questions?</label>
+                  <label className="block text-sm font-semibold text-textMain mb-2">Example Question Guidance</label>
                   <textarea 
-                    value={formData.followUpTriggers}
-                    onChange={e => setFormData({...formData, followUpTriggers: e.target.value})}
-                    className="w-full h-28 bg-background border border-borderMain rounded-md p-3 text-sm text-white focus:outline-none focus:border-amber-500 resize-none"
-                    placeholder="If the aircraft model or tail number is not provided..."
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-primary mb-2">Preferred answer style</label>
-                  <textarea 
-                    value={formData.answerStyle}
-                    onChange={e => setFormData({...formData, answerStyle: e.target.value})}
-                    className="w-full h-24 bg-background border border-borderMain rounded-md p-3 text-sm text-white focus:outline-none focus:border-primary resize-none"
-                    placeholder="e.g. Bullet points, highly technical, step-by-step..."
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-textMain mb-2">Example questions</label>
-                  <textarea 
-                    value={formData.exampleQuestions}
-                    onChange={e => setFormData({...formData, exampleQuestions: e.target.value})}
+                    value={formData.example_question_guidance}
+                    onChange={e => setFormData({...formData, example_question_guidance: e.target.value})}
                     className="w-full h-28 bg-background border border-borderMain rounded-md p-3 text-sm text-white focus:outline-none focus:border-borderMain resize-none"
-                    placeholder="List examples..."
+                    placeholder="Guidance on identifying typical questions..."
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-textMain mb-2">Expected key points</label>
+                  <label className="block text-sm font-semibold text-textMain mb-2">Expected Key Points Guidance</label>
                   <textarea 
-                    value={formData.expectedKeyPoints}
-                    onChange={e => setFormData({...formData, expectedKeyPoints: e.target.value})}
+                    value={formData.expected_key_points_guidance}
+                    onChange={e => setFormData({...formData, expected_key_points_guidance: e.target.value})}
                     className="w-full h-28 bg-background border border-borderMain rounded-md p-3 text-sm text-white focus:outline-none focus:border-borderMain resize-none"
-                    placeholder="List expected outputs..."
+                    placeholder="Guidance on verifying answers..."
                   />
                 </div>
               </div>

@@ -107,17 +107,15 @@ export function QuestionsManager() {
       'specific rules': globalSettings.generalRules,
       redlines: globalSettings.redlines,
       'expected schema': globalSettings.expectedSchema,
-      'when to use': '',
-      'checks before answering': '',
-      'primary resources': '',
-      'mandatory mentions': '',
-      'avoidances': '',
-      'follow up triggers': '',
+      'purpose': '',
+      'category rules': '',
+      'category redlines': '',
+      'required context': '',
       'escalation triggers': '',
-      'uncertainty handling': '',
-      'answer style': '',
-      'example questions': '',
-      'expected key points': ''
+      'answer structure': '',
+      'example question guidance': '',
+      'expected key points guidance': '',
+      'required sources': ''
     };
 
     const catData = [
@@ -128,17 +126,15 @@ export function QuestionsManager() {
         'specific rules': c.specificRules,
         redlines: c.redlines,
         'expected schema': c.expectedSchema,
-        'when to use': c.whenToUse,
-        'checks before answering': c.checksBeforeAnswering,
-        'primary resources': c.primaryResources,
-        'mandatory mentions': c.mandatoryMentions,
-        'avoidances': c.avoidances,
-        'follow up triggers': c.followUpTriggers,
-        'escalation triggers': c.escalationTriggers,
-        'uncertainty handling': c.uncertaintyHandling,
-        'answer style': c.answerStyle,
-        'example questions': c.exampleQuestions,
-        'expected key points': c.expectedKeyPoints
+        'purpose': c.purpose,
+        'category rules': c.category_rules,
+        'category redlines': c.category_redlines,
+        'required context': c.required_context,
+        'escalation triggers': c.escalation_triggers,
+        'answer structure': c.answer_structure,
+        'example question guidance': c.example_question_guidance,
+        'expected key points guidance': c.expected_key_points_guidance,
+        'required sources': c.required_sources
       }))
     ];
     const catSheet = XLSX.utils.json_to_sheet(catData);
@@ -182,17 +178,15 @@ export function QuestionsManager() {
               specificRules: row['specific rules'] || '',
               redlines: row.redlines || '',
               expectedSchema: row['expected schema'] || '',
-              whenToUse: row['when to use'] || '',
-              checksBeforeAnswering: row['checks before answering'] || '',
-              primaryResources: row['primary resources'] || '',
-              mandatoryMentions: row['mandatory mentions'] || '',
-              avoidances: row.avoidances || '',
-              followUpTriggers: row['follow up triggers'] || '',
-              escalationTriggers: row['escalation triggers'] || '',
-              uncertaintyHandling: row['uncertainty handling'] || '',
-              answerStyle: row['answer style'] || '',
-              exampleQuestions: row['example questions'] || '',
-              expectedKeyPoints: row['expected key points'] || ''
+              purpose: row.purpose || '',
+              category_rules: row['category rules'] || '',
+              category_redlines: row['category redlines'] || '',
+              required_context: row['required context'] || '',
+              escalation_triggers: row['escalation triggers'] || '',
+              answer_structure: row['answer structure'] || '',
+              example_question_guidance: row['example question guidance'] || '',
+              expected_key_points_guidance: row['expected key points guidance'] || '',
+              required_sources: row['required sources'] || ''
             });
           }
         });

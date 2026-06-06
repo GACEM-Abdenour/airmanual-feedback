@@ -1,14 +1,12 @@
 -- Run this script in your Supabase SQL Editor to update your tables
 
 ALTER TABLE categories
-ADD COLUMN IF NOT EXISTS "whenToUse" TEXT,
-ADD COLUMN IF NOT EXISTS "checksBeforeAnswering" TEXT,
-ADD COLUMN IF NOT EXISTS "primaryResources" TEXT,
-ADD COLUMN IF NOT EXISTS "mandatoryMentions" TEXT,
-ADD COLUMN IF NOT EXISTS "avoidances" TEXT,
-ADD COLUMN IF NOT EXISTS "followUpTriggers" TEXT,
-ADD COLUMN IF NOT EXISTS "escalationTriggers" TEXT,
-ADD COLUMN IF NOT EXISTS "uncertaintyHandling" TEXT,
-ADD COLUMN IF NOT EXISTS "answerStyle" TEXT,
-ADD COLUMN IF NOT EXISTS "exampleQuestions" TEXT,
-ADD COLUMN IF NOT EXISTS "expectedKeyPoints" TEXT;
+ADD COLUMN IF NOT EXISTS "purpose" TEXT,
+ADD COLUMN IF NOT EXISTS "category_rules" TEXT,
+ADD COLUMN IF NOT EXISTS "category_redlines" TEXT,
+ADD COLUMN IF NOT EXISTS "required_context" TEXT,
+ADD COLUMN IF NOT EXISTS "escalation_triggers" TEXT,
+ADD COLUMN IF NOT EXISTS "answer_structure" TEXT,
+ADD COLUMN IF NOT EXISTS "example_question_guidance" TEXT,
+ADD COLUMN IF NOT EXISTS "expected_key_points_guidance" TEXT,
+ADD COLUMN IF NOT EXISTS "required_sources" TEXT;
