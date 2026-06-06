@@ -1,12 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import { 
   Library, 
-  Settings
+  Settings,
+  Beaker
 } from 'lucide-react';
 
 const navItems = [
   { name: 'Questions Manager', path: '/', icon: Library },
-  { name: 'Task Policies', path: '/global-rules', icon: Settings }
+  { name: 'Task Policies', path: '/global-rules', icon: Settings },
+  { name: 'Test Lab', path: '/test-lab', icon: Beaker }
 ];
 
 export function Sidebar() {
