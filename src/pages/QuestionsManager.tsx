@@ -9,7 +9,7 @@ import type { GlobalSettings } from '../types';
 export function QuestionsManager() {
   const { 
     questions, categories, globalSettings, questionRequests, 
-    addQuestion, updateQuestion, deleteQuestion, 
+    addQuestion, updateQuestion, deleteQuestion, deleteAllQuestions, 
     importExcelData, importQuestionRequests, approveRequest, approveAllRequests, denyRequest, 
     toggleReaction, addComment 
   } = useAppContext();
@@ -17,6 +17,7 @@ export function QuestionsManager() {
   const [isCreatingNew, setIsCreatingNew] = useState(false);
   const [editingQuestionId, setEditingQuestionId] = useState<string | null>(null);
   const [questionToDelete, setQuestionToDelete] = useState<string | null>(null);
+  const [showDeleteAllModal, setShowDeleteAllModal] = useState(false);
   const [newQuestionData, setNewQuestionData] = useState({
     question: '',
     expectedAnswer: '',
@@ -82,6 +83,11 @@ export function QuestionsManager() {
       deleteQuestion(questionToDelete);
       setQuestionToDelete(null);
     }
+  };
+
+  const confirmDeleteAll = () => {
+    deleteAllQuestions();
+    setShowDeleteAllModal(false);
   };
 
   // Excel logic
@@ -287,6 +293,13 @@ export function QuestionsManager() {
               >
                 <Upload className="w-4 h-4 mr-2" />
                 Import Excel (Admin)
+              </button>
+              <button 
+                onClick={() => setShowDeleteAllModal(true)}
+                className="border border-red-500/50 hover:bg-red-500/10 text-red-400 px-4 py-2 rounded-md transition-colors flex items-center text-sm font-medium"
+              >
+                <Trash2 className="w-4 h-4 mr-2" />
+                Delete All Questions
               </button>
             </>
           ) : (
@@ -675,6 +688,36 @@ export function QuestionsManager() {
                 className="bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white border border-red-500/20 hover:border-red-500 px-4 py-2 rounded-md text-sm font-medium transition-colors"
               >
                 Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete All Confirmation Modal */}
+      {showDeleteAllModal && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 backdrop-blur-sm">
+          <div className="bg-surface border border-red-500/50 rounded-lg shadow-2xl w-full max-w-md p-6 flex flex-col">
+            <div className="flex items-center text-red-500 mb-4">
+              <AlertCircle className="w-8 h-8 mr-3" />
+              <h2 className="text-xl font-bold text-white">Delete ALL Questions?</h2>
+            </div>
+            <div className="text-sm text-textMuted mb-6 space-y-2">
+              <p>Are you absolutely sure you want to delete <strong className="text-white">every single question</strong> in the database?</p>
+              <p className="text-red-400 font-medium">This action cannot be undone. All questions, expected answers, and user comments will be permanently erased.</p>
+            </div>
+            <div className="flex justify-end gap-3">
+              <button 
+                onClick={() => setShowDeleteAllModal(false)}
+                className="px-4 py-2 text-sm font-medium text-textMuted hover:text-white transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmDeleteAll}
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md text-sm font-medium transition-colors shadow-lg shadow-red-500/20"
+              >
+                Yes, Delete Everything
               </button>
             </div>
           </div>

@@ -11,6 +11,7 @@ interface AppContextType {
   addQuestion: (q: QuestionEntry) => void;
   updateQuestion: (q: QuestionEntry) => void;
   deleteQuestion: (id: string) => void;
+  deleteAllQuestions: () => void;
   importExcelData: (cats: CategoryTag[], qs: QuestionEntry[], sets?: GlobalSettings) => void;
   importQuestionRequests: (qs: QuestionEntry[]) => void;
   approveRequest: (id: string) => void;
@@ -82,6 +83,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setQuestions(questions.filter(q => q.id !== id));
     const { error } = await supabase.from('questions').delete().eq('id', id);
     if (error) console.error('Delete question error:', error);
+  };
+  
+  const deleteAllQuestions = async () => {
+    setQuestions([]);
+    const { error } = await supabase.from('questions').delete().neq('id', '');
+    if (error) console.error('Delete all questions error:', error);
   };
   
   const importExcelData = async (newCategories: CategoryTag[], newQuestions: QuestionEntry[], newSettings?: GlobalSettings) => {
@@ -289,6 +296,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       addQuestion,
       updateQuestion,
       deleteQuestion,
+      deleteAllQuestions,
       importExcelData,
       importQuestionRequests,
       approveRequest,
