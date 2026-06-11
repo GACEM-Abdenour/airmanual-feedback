@@ -2,12 +2,14 @@ import { NavLink } from 'react-router-dom';
 import { 
   Library, 
   Settings,
-  Beaker
+  Beaker,
+  ShieldAlert
 } from 'lucide-react';
 
 const navItems = [
   { name: 'Questions Manager', path: '/', icon: Library },
   { name: 'Task Policies', path: '/global-rules', icon: Settings },
+  { name: 'Architecture Docs', path: '/symptom-pattern-architecture', icon: ShieldAlert },
   { name: 'Test Lab', path: '/test-lab', icon: Beaker }
 ];
 
