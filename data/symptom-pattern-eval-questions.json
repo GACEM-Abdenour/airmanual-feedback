@@ -1,0 +1,322 @@
+[
+  {
+    "id": "q-1780778779755-w9el4kn",
+    "question": "Pilot reports a strong fuel smell in the cockpit during ground run on a Robinson R44 Raven I. No visible fuel leak seen externally. Engine started and ran normally. What inspection should be performed?",
+    "expectedAnswer": "1. Shut down engine. Inspected carburetor (P/N 61C22451 MA-4-5) and all fuel connections for leaks. 2. Inspected carburetor float bowl drain screw - found loose (weeping fuel). Re-torqued drain screw to correct value. 3. Inspected carburetor gasket (P/N 66224) at mounting flange - no leak. 4. Inspected all fuel line connections from selector to carburetor for seeping fittings or cracked hoses. 5. Ground run post-repair - no fuel smell. Parts replaced: None (drain screw re-torqued).",
+    "category": "fault_diagnosis",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Carburetor float bowl drain screw condition and torque; carburetor mounting gasket (P/N 66224) condition; fuel line connection integrity from fuel selector to carburetor; intake pipe hose clamp (P/N LW-15592-8-28) condition; presence of fuel residue at specific components to isolate source; post-repair ground run smell check."
+  },
+  {
+    "id": "q-1780778779755-vp5pcxd",
+    "question": "Pilot reports OAT (outside air temperature) gauge pegged at full scale throughout the flight on a Robinson R44 Raven II. Carb air temperature gauge was normal. No other instrument anomalies. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Inspected B341 Outside Air Temp Gauge and O.A.T. Sender wiring (GREEN/BLACK/RED) at sender. 2. Measured sender resistance at ambient temperature - open circuit (sender failed). 3. Replaced O.A.T. sender (B341 OAT Sender). 4. Verified OAT gauge reads correct ambient temperature after replacement. 5. Inspected carb air temp sender (A058 Carb Air Temp Sender -17, wires 38/37/36) - serviceable and reading normally. Parts replaced: 1x OAT Sender (B341).",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: OAT sender resistance at known ambient temperature (open circuit = sender failed; note: pegged high usually indicates short to voltage or sender failure mode); wiring condition GREEN/BLACK/RED at sender connector; OAT gauge pointer behaviour (pegged high = short or specific failure mode); carb air temp sender (A058, wires 38/37/36) condition to confirm it is a separate independent circuit; post-replacement OAT gauge accuracy at ambient temperature."
+  },
+  {
+    "id": "q-1780778779755-ufzk50f",
+    "question": "Pilot reports collective push-to-start button inoperative on a Robinson R44 Raven I. Engine does not crank when collective start button is pressed. Engine starts normally using the ignition switch START position. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Inspected collective push-to-start switch wiring (wires 1522/1521 per -17 schematic) from collective to starter relay circuit. 2. Measured continuity across push-to-start switch contacts when pressed - open circuit (switch failed). 3. Removed and replaced collective push-to-start switch. 4. Verified continuity and correct function - starter energised on collective button press. 5. Engine started using collective button - normal. Parts replaced: 1x Collective Push-to-Start Switch.",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Continuity across collective push-to-start switch contacts when actuated (should be closed/continuity when pressed); switch wiring wires 1522/1521 for shorts, chafing, or loose connections; ignition switch START position functionality to confirm starter relay and engine crank is functional; post-replacement functional test of collective start button and engine start."
+  },
+  {
+    "id": "q-1780778779755-rf6xwsb",
+    "question": "Pilot reports ignition switch (A661) difficult to rotate to the START position, requiring excessive force on a Robinson R44 Raven I. L/R/BOTH positions rotate normally. Engine eventually started after two attempts. What corrective action should be performed?",
+    "expectedAnswer": "1. Inspected A661 Ignition Switch externally for damage. 2. Removed ignition switch from panel per R44 Maint. Manual. 3. Confirmed internal detent worn on START position causing stiffness. 4. Replaced A661 Ignition Switch with new unit. 5. Reconnected wiring per applicable schematic: BAT/S/R/BO/LR/L positions (wires 3049/584/634/16/166/164/15 for -17; equivalent for -16). 6. Verified all positions (OFF/R/L/BOTH/START) with continuity tester. 7. Engine started - switch operated normally. Parts replaced: 1x Ignition Switch A661.",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Switch mechanical operation in all positions (OFF/R/L/BOTH/START) before and after replacement; internal detent wear identification on removal; correct wiring reconnection per schematic (wires 3049/584/634/16/166/164/15 for -17 engine); continuity verification of all switch positions post-installation; engine start confirmation with new switch."
+  },
+  {
+    "id": "q-1780778779755-pqsmbbh",
+    "question": "Pilot reports tail anti-collision strobe light inoperative on a Robinson R44 Raven I. Strobe LT switch confirmed ON. No circuit breaker tripped. Navigation and position lights are serviceable. CAR 605.16 compliance required. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Confirmed strobe inoperative with switch ON; circuit breaker serviceable. 2. Traced strobe circuit: measured 14V at A200 Strobe Power Supply input (wire #164). 3. Measured A200 output - 0V (supply failed). 4. Removed and replaced A200 Strobe Power Supply unit. 5. Post-replacement: HV output confirmed; tail strobe flashing at correct frequency. 6. Verified wire #76 (C2-14) continuity from strobe switch to power supply - serviceable. 7. Re-secured disturbed wiring with zip straps (P/N 76734). Parts replaced: 1x A200 Strobe Power Supply (Starting Vibrator) unit.",
+    "category": "airworthiness_and_compliance",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Voltage at A200 Strobe Power Supply input via wire #164 (14V expected); A200 output voltage (HV pulses expected at strobe head - 0V = supply failed); strobe switch output continuity wire #76 (C2-14); circuit breaker rating and condition; wire #76 full continuity from switch to power supply; zip strap condition on disturbed wiring; post-replacement flash frequency confirmation."
+  },
+  {
+    "id": "q-1780778779755-pes79sj",
+    "question": "Pilot reports LOW OIL PRESSURE warning light ON in cruise at 2,500 ft ASL on a Robinson R44 Raven II with a Lycoming O-540-F1B5 engine. Oil pressure gauge reading low end of green arc (~50 psi). Light extinguished after power reduction. No smoke or abnormal sounds. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Checked engine oil quantity - found at lower limit (5 qt); added 1 qt Aeroshell W80+. 2. Inspected oil filler adapter (P/N LW-18482) and gasket (P/N LW-18481) for leaks - none found. 3. Inspected oil pressure relief valve assembly (P/N 77808) and spring (P/N 68668) - free length within limits. 4. Verified oil pressure sender circuit continuity: wire #10 (P10 B), connector C2-6 - within spec. 5. Inspected all 6 rocker box cover gaskets (P/N 06B26669) - no seepage. 6. Engine ground run - oil pressure stabilised at 75 psi in green arc. Parts replaced: 1 qt Aeroshell W80+ consumed (no parts replaced).",
+    "category": "limits_and_specifications",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Actual oil quantity vs. minimum limit; oil pressure relief valve spring free length vs. service limit; oil pressure sender circuit continuity at wire #10 (P10 B) connector C2-6; oil filler adapter and gasket condition for leaks; rocker box cover gasket condition; oil pressure reading at cruise power during ground run; OAT and power setting at time of event."
+  },
+  {
+    "id": "q-1780778779755-p9fboe0",
+    "question": "Pilot reports excessive left magneto RPM drop of 175 RPM (limit 125 RPM) on a Robinson R44 / Lycoming O-540-F1B5 during pre-flight run-up. Engine is rough on left magneto only. Right magneto drop is 50 RPM and within limits. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Removed top cowling. Inspected left magneto (P/N 66B21774, S6LSC-200), adapter (P/N LW-12707), and harness assembly LW-M-2463 for insulation damage and continuity. 2. Removed all 6 bottom spark plugs (Champion REM38E P/N 1182-E7) on left magneto circuit - cylinder #4 bottom plug found heavily fouled with lead deposits. 3. Cleaned all 6 plugs with plug cleaner/blaster; re-gapped all to Lycoming Maint. Manual limits. 4. Re-ran engine: left magneto drop 85 RPM - within limits. Right magneto unchanged. 5. Inspected magneto drive cushion (P/N 68H22624) and gaskets (P/N 62224) - serviceable. 6. Checked magneto timing - within limits per Lycoming Maint. Manual. Parts replaced: None (cyl #4 bottom plug cleaned and re-gapped).",
+    "category": "limits_and_specifications",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Left vs. right magneto RPM drop comparison and maximum limit (125 RPM); which cylinder plugs are on the left magneto circuit; spark plug fouling type (lead, oil, carbon) and severity; spark plug gap measurement vs. Lycoming limits; harness LW-M-2463 continuity and insulation condition; magneto timing check; magneto drive cushion P/N 68H22624 condition; post-service magneto drop re-check."
+  },
+  {
+    "id": "q-1780778779755-p3mufc0",
+    "question": "Pilot reports oil sump gasket oil leak found dripping on the ground beneath the helicopter post-flight on a Robinson R44 Raven II with a Lycoming O-540-F1B5. Oil quantity is 1 quart low. What corrective action is required?",
+    "expectedAnswer": "1. Confirmed oil drip origin at oil sump gasket (P/N 06B21326) - forward left corner weeping. 2. Drained engine oil. 3. Removed oil sump assembly (P/N 56A21246) - 14x studs 25C-11 and 4x studs 31C-15 released. 4. Cleaned mating surfaces on sump and crankcase. 5. Installed new oil sump gasket (P/N 06B21326). 6. Re-installed oil sump with all studs and nuts to torque per Lycoming Maint. Manual. 7. Refilled engine with correct quantity and grade of oil. 8. Ground run - no oil leaks. Parts replaced: 1x Oil Sump Gasket P/N 06B21326; engine oil (consumable).",
+    "category": "maintenance_procedure",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Confirmation of leak origin at sump gasket vs. other oil system joints; sump mating surface condition (flatness, old gasket material removal); correct gasket P/N (06B21326); stud torque sequence and values per Lycoming Maint. Manual; oil quantity and grade for refill; post-repair ground run leak check."
+  },
+  {
+    "id": "q-1780778779755-ogjit36",
+    "question": "Pilot reports compass light not illuminating at night on a Robinson R44 Raven II. All other panel and instrument lights are serviceable. NAV LTS switch is confirmed ON. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Confirmed NAV LTS switch ON; all other panel lights serviceable. 2. Checked compass light circuit: G196 LT Assy with wire 126 (BLU) to compass light, wire 125 (WHT). 3. Measured voltage at compass light connector - 14V present. 4. Inspected compass light lamp - found failed (open filament). 5. Replaced compass light lamp. 6. Tested compass light with NAV LTS switch ON - fully illuminated. Parts replaced: 1x Compass Light Lamp (G196 LT Assy).",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Voltage at compass light connector (14V present = circuit is good); compass light lamp filament condition after removal; NAV LTS switch output vs. compass light sub-circuit wiring; G196 LT Assy wiring condition wires 126 (BLU) and 125 (WHT); dimmer effect on compass light; post-replacement functional test."
+  },
+  {
+    "id": "q-1780778779755-lmzqx0q",
+    "question": "Pilot reports clock (A072 standard clock) inoperative on a Robinson R44 Raven II. Display is blank. All other panel instruments normal. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Checked clock circuit: A072 STD CLK wiring - wires 133 (minus/LT), 134, and 137 (plus) at clock. 2. Measured voltage at clock connector - 14V present (correct). 3. Ground clock (133/LT) circuit continuity - serviceable. 4. Tested A072 clock by substitution with known good unit - original clock confirmed internally failed. 5. Replaced A072 STD CLK with new unit. 6. Clock operational after replacement. Parts replaced: 1x A072 STD Clock.",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Voltage at A072 clock connector pins wires 133/134/137 (14V power and ground); ground circuit continuity; substitution test to confirm internal clock failure vs. wiring fault; circuit breaker associated with clock circuit; post-replacement clock operation and timekeeping accuracy."
+  },
+  {
+    "id": "q-1780778779755-ka8ngks",
+    "question": "Pilot reports right landing light inoperative on a Robinson R44 Raven I. Left landing light confirmed serviceable. Both landing light switches are selected ON. No circuit breaker tripped. Night operations require both landing lights. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Checked LAND LT circuit breaker - serviceable. 2. Traced landing light circuit from LANDING LTS SWITCH through relay (wires 85/86/87/87A/30) to right landing light connector. 3. Measured voltage at right landing light connector - 14V present (circuit to lamp confirmed good). 4. Removed right landing light (B556 HID type) - ballast assembly confirmed failed. 5. Replaced right landing light ballast assembly per R44 Maint. Manual. 6. Tested both landing lights - fully operational. Parts replaced: 1x Right Landing Light/Ballast Assembly (B556 HID type).",
+    "category": "airworthiness_and_compliance",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Voltage at right landing light connector (14V present = circuit to lamp is good; eliminates switch, relay, and wiring); landing lights relay function wires 85/86/87/87A/30; LAND LT circuit breaker rating; ballast assembly vs. bulb failure identification for HID system; post-replacement functional test of both lights."
+  },
+  {
+    "id": "q-1780778779755-jqwu454",
+    "question": "Pilot reports CLUTCH warning light ON during startup then again steadily during cruise on a Robinson R44 Raven I. Burning belt smell noted on shutdown. Belt tension actuator cycling noise heard during flight. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Removed cowling. Inspected alternator drive belt (P/N 37A19773-376) - glazed, frayed outer edge, tension below lower limit per R44 Maint. Manual. 2. Inspected alternator pulley (P/N 36B19484) and alternator assembly (P/N 32B19549, 12V/70A) - serviceable. 3. Inspected C051 Belt Tension Actuator: extension limit switch (wires 97/139) and retraction limit switch (wires 90/139) - both functional. 4. Tested D602 Actuator Time Delay - serviceable. 5. Replaced belt P/N 37A19773-376. Tensioned to limits per R44 Maint. Manual. 6. Cycled clutch 3 times - warning light extinguished within specified time on each cycle. 7. Verified engage/disengage switch circuit wires 92/93/113/138. Parts replaced: 1x Alternator Drive Belt P/N 37A19773-376.",
+    "category": "fault_diagnosis",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Belt tension measurement vs. R44 Maint. Manual lower limit; belt surface condition (glazing, fraying, cracking); alternator pulley alignment and condition; C051 Belt Tension Actuator extension/retraction limit switch function; D602 Time Delay relay test result; clutch warning light extinguish time after engagement vs. specified limit; engage/disengage switch wiring continuity wires 92/93/113/138."
+  },
+  {
+    "id": "q-1780778779755-jg4bcmg",
+    "question": "Pilot reports CO detector card triggered colour change during flight on a Robinson R44 Raven II with cabin heater in use. Pilot turned off heater, cracked doors, and landed immediately. No pilot symptoms of CO exposure. What inspection and corrective action is required?",
+    "expectedAnswer": "1. Inspected all 6 cylinder exhaust flange gaskets (P/N 77611) for cracks, holes, and failed joints - cylinder #5 exhaust flange gasket found cracked. 2. Replaced cylinder #5 exhaust flange gasket (P/N 77611); re-torqued exhaust flange nuts per Lycoming Maint. Manual. 3. Inspected heater shroud and defrost ducts for carbon deposits. 4. Verified electronic CO detector (C696 Carbon Monoxide Detector) functional - wiring YELLOW/RED/BLACK checked secure. 5. Ground run with heater ON - no CO reading on calibrated electronic detector. Parts replaced: 1x Exhaust Flange Gasket P/N 77611 (Cyl #5).",
+    "category": "maintenance_procedure",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Exhaust system visual inspection for cracks, holes, and failed welds at all 6 cylinder exhaust flange gaskets (P/N 77611); heat muff and heater shroud condition for carbon deposits; CO detector (C696) wiring YELLOW/RED/BLACK and calibration status; exhaust flange nut torque values per Lycoming Maint. Manual; post-repair CO measurement with heater operating; flight conditions at time of event (heater in use, duration, OAT)."
+  },
+  {
+    "id": "q-1780778779755-j3y56yw",
+    "question": "Pilot reports oil residue on engine cowling after flight on a Robinson R44 Raven II with a Lycoming O-540-F1B5. AME post-flight inspection finds fresh oil seeping from a cylinder rocker box cover gasket. Oil quantity is normal. What corrective action is required?",
+    "expectedAnswer": "1. Identified affected cylinder by tracing seep origin. 2. Removed rocker box cover (P/N 61247) - 6x screws P/N STD-1925 (1/4-20 x 5/8 pan head). 3. Removed old gasket (P/N 06B26669) - found cracked and compressed. 4. Cleaned mating surfaces on rocker box and cover. 5. Installed new silicone gasket P/N 06B26669 - no sealant required per Lycoming Maint. Manual. 6. Re-installed cover with 6x screws P/N STD-1925 to specified torque per Lycoming Maint. Manual. 7. Inspected remaining 5 rocker box cover gaskets - all serviceable. 8. Engine ground run - no oil leaks observed. Parts replaced: 1x Rocker Box Cover Gasket (Silicone) P/N 06B26669.",
+    "category": "maintenance_procedure",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Which cylinder is affected (visual tracing of seep origin); gasket condition (cracking, compression set, tears); mating surface flatness and cleanliness; correct gasket P/N (silicone type 06B26669 - no sealant); cover screw torque value per Lycoming Maint. Manual; condition of remaining 5 rocker box cover gaskets; post-repair ground run oil check."
+  },
+  {
+    "id": "q-1780778779755-hvwg3ch",
+    "question": "Pilot reports STARTER warning light remains illuminated for approximately 30 seconds after engine start on a Robinson R44 Raven II before extinguishing. Observed on two consecutive starts. Engine started and ran normally both times. What troubleshooting should be performed?",
+    "expectedAnswer": "1. Inspected starter motor wiring at engine case (A212-1 cable assembly) and starter relay connections. 2. Checked engine oil pressure switch (NC contacts, wires 80 ORG/WHT/BLU) - verified switch opens correctly when oil pressure is established. 3. Measured switch open-circuit threshold pressure - within specification (switch opens at >=40 psi). 4. Determined delay is consistent with normal oil pressure build time on cold engine at prevailing ambient temperature - no fault found. 5. Advised pilot of normal cold-start oil pressure build time per R44 Maint. Manual. 6. Inspected A212-1 starter connections for security - serviceable. Parts replaced: None.",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Oil pressure switch (NC) open-circuit threshold measurement (should open at >=40 psi); time for oil pressure to reach switch threshold on cold start vs. engine and ambient temperature; oil pressure switch wires 80 ORG/WHT/BLU continuity; starter relay and A212-1 cable assembly connection security; oil viscosity in use vs. ambient temperature; battery voltage during cranking."
+  },
+  {
+    "id": "q-1780778779755-gmwqzac",
+    "question": "Pilot reports LOW RPM amber warning light ON intermittently then steady during cruise on a Robinson R44 Raven II. Horn did not sound. Rotor and engine RPM appeared normal on both gauges throughout. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Inspected A569 Low RPM W/Starter Lockout unit wiring and connectors for security and corrosion. 2. Traced tach sender wires 80 ORG/WHT/BLU (conn. C2-20/21/22), low RPM sender wires 84/86, and horn ground circuit. 3. Found intermittent loose crimp at grey wire #87 on low RPM sender connector - re-crimped pin and fitted new locking clip. 4. Tested B280 Low RPM Relay coil resistance - serviceable. 5. Ground ran warning system: light and horn activated correctly below threshold. 6. HI RPM TEST via C792 Dual Tach - passed. 7. Verified wire #70 (C1-9) collective switch Full Down input - serviceable. Parts replaced: 1 connector locking clip (consumable).",
+    "category": "fault_diagnosis",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Continuity and crimp condition of tach sender wires 80 ORG/WHT/BLU at conn. C2-20/21/22; low RPM sender wires 84 ORG/WHT/BLU and 86 BLU/BLK pin condition; B280 relay coil resistance; horn ground circuit integrity; collective switch Full Down input wire #70 at C1-9; warning light threshold RPM; HI RPM TEST result via C792 Dual Tach."
+  },
+  {
+    "id": "q-1780778779755-g7xx2hi",
+    "question": "Pilot reports CHT (cylinder head temperature) gauge pegged at the bottom of the gauge throughout the flight on a Robinson R44 Raven II with a Lycoming O-540-F1B5. All other engine gauges were normal. Engine performance was normal. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Inspected A760-2 Cyl Hd Temp Sender (RED/RED/BLK) at cylinder head - connector found corroded and partially disconnected. 2. Cleaned connector pins with electrical contact cleaner. 3. Re-crimped terminal; reconnected and secured with new locking clip. 4. Checked CHT signal wiring to B144 Instrument Cluster: CHT SENSOR/CHT RETURN/SHIELD connections. 5. Ground ran engine - CHT gauge climbed normally to approximately 350 deg F operating temperature. Parts replaced: None.",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: CHT sender (A760-2) connector pin condition (corrosion, separation); CHT signal wiring continuity from sender to B144 Instrument Cluster CHT SENSOR/CHT RETURN/SHIELD pins; sender body security at cylinder head; gauge pointer behaviour (pegged low = open circuit); post-repair CHT temperature rise rate vs. expected values."
+  },
+  {
+    "id": "q-1780778779755-g3rd5dr",
+    "question": "Pilot reports ROTOR BRAKE warning light stays ON after the rotor brake is released on a Robinson R44 Raven II. Rotor spun up freely to normal speed confirming brake is physically released. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Verified rotor brake caliper fully released - confirmed physically. 2. Inspected rotor brake switch wiring: wires 2047/ENGAGED/RELEASED at switch assembly. 3. Measured switch continuity in released position - switch not fully opening (residual contact - switch fault). 4. Inspected D880 Time Delay Assembly wiring: wires 2315/582/2314/2316 - serviceable. 5. Adjusted rotor brake switch actuating arm to achieve full open circuit in released position. 6. Cycled rotor brake 5 times - warning light extinguished immediately upon full release on each cycle. 7. Warning light confirmed ON when brake is applied. Parts replaced: None.",
+    "category": "fault_diagnosis",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Rotor brake switch open-circuit measurement in released position (should read open; residual contact = switch or adjustment fault); switch actuating arm travel and adjustment range; D880 Time Delay Assembly wiring condition wires 2315/582/2314/2316; G198 WRG LT Panel ROTOR BRAKE LIGHT circuit wires 2058/2819; brake caliper full release confirmation; warning light response in both applied and released positions after adjustment."
+  },
+  {
+    "id": "q-1780778779755-fjx9oaw",
+    "question": "Pilot reports engine RPM needle on the C792 dual tachometer fluctuating erratically during cruise on a Robinson R44 Raven I. Rotor RPM needle was steady and normal. Engine sounded normal. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Inspected C792 Dual Tachometer for security in panel. 2. Inspected engine tach sender wiring: wires 80 ORG/WHT/BLU (conn. C2-20/21/22) for connection security and insulation condition along full length. 3. Found chafed insulation on wire 80 (ORG) at cable clamp near firewall - chafed to bare conductor causing intermittent ground fault. 4. Repaired wire 80 (ORG) with approved wire repair technique; re-insulated and protected with conduit; cable clamp re-secured. 5. C792 tach reading stable on ground run. 6. HI RPM TEST performed - passed. Parts replaced: Wiring repair materials (consumable).",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Engine tach sender wires 80 ORG/WHT/BLU insulation condition along full length especially at cable clamps and firewall penetrations; connector security at C2-20/21/22; C792 Dual Tach instrument security in panel; rotor vs. engine needle comparison to isolate which sender circuit is faulty (engine needle erratic but rotor steady = engine sender circuit fault); HI RPM TEST pass/fail result."
+  },
+  {
+    "id": "q-1780778779755-ef1nhqy",
+    "question": "Pilot reports instrument panel lighting dimmer inoperative on a Robinson R44 Raven II. All instrument and panel lights stay at full brightness regardless of dimmer knob position. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Inspected console light dimmer and dimmer control wiring: wires 931/932/933/934/750 to console lights. 2. Checked B304 Cap Assy wiring associated with dimmer circuit. 3. Measured dimmer potentiometer resistance across wiper and end terminals - open-circuit wiper found. 4. Replaced dimmer potentiometer. 5. Verified dimmer varies all panel lighting correctly from OFF to full brightness. 6. Checked G196 LT Assy (circuit breaker lights), throttle light (wire 3052), and compass light (wire 126) - all serviceable. Parts replaced: 1x Dimmer Potentiometer.",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Dimmer potentiometer resistance measurement across wiper and end terminals (should vary 0 to max through rotation - open wiper = faulty); wiring continuity for dimmer circuit wires 931/932/933/934/750; B304 Cap Assy wiring condition; whether any lighting remains variable to isolate dimmer vs. wiring fault; post-replacement verification of full dimming range from OFF to full."
+  },
+  {
+    "id": "q-1780778779755-dm6evvs",
+    "question": "Pilot reports oil suction screen removed at 100-hour inspection was found with light metallic debris on a Robinson R44 Raven II with a Lycoming O-540-F1B5. What action is required?",
+    "expectedAnswer": "1. Inspected oil suction screen (P/N 70484) debris under magnification - found light fine metallic particles (consistent with normal engine wear at this service interval). No large particles, chips, or spirals observed. 2. Cleaned screen thoroughly. 3. Replaced oil filter element. 4. Drained and refilled with fresh Aeroshell W80+ oil. 5. Replaced oil suction screen drain plug gasket (P/N 06E19769-1.00). 6. Re-installed oil suction screen with new drain plug gasket. 7. Ground run - checked for leaks. 8. Documented findings for trend monitoring. Parts replaced: Oil filter element; 1x Gasket P/N 06E19769-1.00; engine oil (consumable).",
+    "category": "maintenance_procedure",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Particle size, type, and quantity (fine metallic = normal wear; large chips, spirals, or magnetic particles = investigate further); comparison to previous inspection findings (trend); oil filter element inspection for additional debris; oil colour and condition; total engine time since new or overhaul; any recent maintenance that could generate metallic debris."
+  },
+  {
+    "id": "q-1780778779755-dkbgs24",
+    "question": "Pilot reports LOW FUEL QTY warning light ON approximately 15 minutes before planned landing on a Robinson R44 Raven II. Fuel gauge showed approximately 8 USG remaining. Pilot landed uneventfully. Post-flight actual fuel measured at 7.5 USG. Is this a system fault or correct operation?",
+    "expectedAnswer": "1. Verified actual fuel quantity post-flight - 7.5 USG, consistent with warning threshold per R44 Maint. Manual (correct operation confirmed). 2. Inspected low fuel quantity switch (P/N 1946) wiring and float arm - serviceable. 3. Checked G655 Low Fuel Qty Warning Time Delay unit wiring: wires 58/2049 - serviceable. 4. Inspected main fuel quantity sender (wires 52W/52B) and aux fuel quantity sender (wires 416W/416B) connector security at B144 Instrument Cluster. 5. Ground-checked warning light illumination threshold - light illuminated at correct quantity per R44 Maint. Manual. No defect found - warning system operated correctly. Parts replaced: None.",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Actual fuel quantity at light illumination vs. R44 Maint. Manual warning threshold; low fuel quantity switch (P/N 1946) float arm position and wiring; G655 time delay unit wiring condition wires 58/2049; main fuel sender wires 52W/52B and aux sender wires 416W/416B connector security at B144 Instrument Cluster; ground threshold test result."
+  },
+  {
+    "id": "q-1780778779755-d9apsnq",
+    "question": "Pilot reports avionics are losing settings between flights on a Robinson R44 Raven II. GPS loses all user waypoints and radio frequencies after each flight. Battery switch is on and battery voltage is normal. What troubleshooting should be performed?",
+    "expectedAnswer": "1. Checked GPS KEEP ALIVE power circuit: wire #2792 from XPDR/GPS KEEP ALIVE circuit to B304-18 Fuse Assy. 2. Measured voltage at GPS KEEP ALIVE connector with battery switch ON and avionics master OFF - found 0V (should be 14V; always-live feed). 3. Inspected B304-18 Fuse Assy - 3A fuse blown. 4. Replaced 3A fuse in B304-18 Fuse Assy. 5. Verified 14V present at GPS KEEP ALIVE connector with avionics master OFF. 6. GPS settings retained after power cycle - confirmed serviceable. Parts replaced: 1x 3A fuse (B304-18 Fuse Assy).",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: GPS KEEP ALIVE wire #2792 voltage with avionics master OFF (should be 14V always-live); B304-18 Fuse Assy 3A fuse condition; wiring continuity from battery bus to GPS KEEP ALIVE feed; whether issue is GPS-specific or affects all avionics memory; post-repair GPS memory retention after power cycle."
+  },
+  {
+    "id": "q-1780778779755-c7fj1v6",
+    "question": "Pilot reports ENG FIRE warning light illuminated briefly at engine start on a Robinson R44 Raven II then self-extinguished within 5 seconds. No fire, smoke, or abnormal heat observed. What troubleshooting should be performed?",
+    "expectedAnswer": "1. Inspected fire detection switch (P/N 250450569, Fenwall type) wiring: wires 638/637/635/636/639. 2. Measured switch resistance at ambient temperature - open circuit (correct; switch normally open, closes on heat). 3. Found slight oxidation at connector pin - cleaned with electrical contact cleaner, re-crimped. 4. Checked ENG FIRE WARN. LT circuit through G198 WRG LT Panel ENGINE FIRE red lamp. 5. Ground run - ENG FIRE light did not illuminate. Engine heat soak verified - switch did not close spuriously. Parts replaced: None.",
+    "category": "fault_diagnosis",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Fire detection switch (P/N 250450569) resistance at ambient temperature (must be open circuit); oxidation and contamination at switch connector pins; switch wiring condition wires 638/637/635/636/639; G198 WRG LT Panel ENGINE FIRE red lamp circuit integrity; engine compartment temperature at switch location during ground run; whether event correlated with start heat transient."
+  },
+  {
+    "id": "q-1780778779755-beqgdc6",
+    "question": "Pilot reports M.R.G.B. OVERTEMP warning light illuminated briefly during cruise on a Robinson R44 Raven I then self-extinguished. Occurred once. No change in handling. All gauges indicated normal. What troubleshooting should be performed?",
+    "expectedAnswer": "1. Inspected M.R.G.B. oil level and colour - within limits, no discolouration. 2. Inspected M.R.G.B. overtemperature switch (P/N 250450569) wiring at switch body: wires 46/197. 3. Measured switch resistance at ambient temperature - open circuit (correct). 4. Found intermittent connection at crimp terminal at switch connector - re-crimped and insulated. 5. 30-minute ground run - overtemperature light did not illuminate. Gearbox temperature monitored - normal operating range throughout. Parts replaced: None.",
+    "category": "fault_diagnosis",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: M.R.G.B. oil level and colour; overtemperature switch (P/N 250450569) resistance at ambient (should be open circuit); crimp and connector condition at switch wires 46/197; harness condition for chafing near switch; G198 WRG LT Panel MR TEMP lamp circuit integrity; gearbox temperature range during extended ground run; flight conditions at time of event (OAT, power setting, duration)."
+  },
+  {
+    "id": "q-1780778779755-ab8xpr6",
+    "question": "Pilot reports pitot heat inoperative on a Robinson R44 Raven I. Pitot heat switch is selected ON but pitot tube remains cold after 2 minutes. No circuit breaker tripped. IFR flight is planned and pitot heat is required by CAR 605.18. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Checked pitot heat circuit breaker - serviceable. 2. Traced pitot heat circuit: pitot switch output wire #709 to TO HEATED PITOT wiring at firewall/cabin bulkhead. 3. Measured voltage at pitot heat element connector - 14V present (circuit to element is good). 4. Measured pitot heat element resistance - open circuit (element burned out). 5. Removed and replaced pitot heat element with new unit. 6. Verified pitot tube warm to touch within 30 seconds of pitot heat switch ON. 7. Checked D341 Pitot Switch wiring - serviceable. Parts replaced: 1x Pitot Heat Element.",
+    "category": "airworthiness_and_compliance",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Voltage at pitot heat element connector (14V present = circuit to element is good; 0V = wiring or switch fault); pitot heat element resistance measurement (open circuit = element burned out); pitot heat switch output continuity; circuit breaker rating and condition; wire #709 continuity from console to pitot system; D341 pitot switch wiring; post-replacement warm-up time verification (tube warm within 30 seconds)."
+  },
+  {
+    "id": "q-1780778779755-9uqfu1i",
+    "question": "Pilot reports M.R.G.B. CHIP warning light ON during cruise on a Robinson R44 Raven II. Pilot landed immediately. No abnormal vibration or sounds observed during flight. What inspection and corrective action is required?",
+    "expectedAnswer": "1. Removed M.R.G.B. chip detector (C006, wires 62/501/500) and inspected on white cloth - found 1 fine magnetic particle (~0.3 mm); no metallic flakes or spirals. 2. Cleaned chip detector; re-installed. 3. Inspected M.R.G.B. oil level - within limits. 4. Verified chip detector circuit continuity: wire #62 and wires 501/500 (ground) - serviceable. 5. Main rotor rotated by hand - no abnormal resistance. 6. 30-minute ground run - chip light not re-illuminated. 7. Gearbox oil sampled - no contamination. Parts replaced: None.",
+    "category": "maintenance_procedure",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Particle count, size, and morphology on white cloth (fine magnetic <0.5 mm = clean and monitor; metallic flake or spiral = AOG); chip detector circuit continuity wires 62/501/500; M.R.G.B. oil level and colour; main rotor rotation resistance by hand; chip light status during extended ground run; gearbox oil contamination; time since last chip detector inspection."
+  },
+  {
+    "id": "q-1780778779755-8u3xr1p",
+    "question": "Pilot reports AUX FUEL / FUEL FILTER warning light ON during flight on a Robinson R44 Raven I. Engine running normally. Fuel pressure normal in flight. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Inspected blocked fuel filter switch wiring (wires 1541/1532/1539) - pressure differential switch activated indicating restricted flow across filter. 2. Removed and inspected in-line fuel filter - found contaminated with debris. 3. Replaced fuel filter element per R44 Maint. Manual. 4. Inspected G655 Fuel Filter Warning Time Delay unit (wires 1543/1530) - serviceable. 5. Inspected D767 Fuel Pump Logic Module connections (wires 1584/1585/1586/1587/1588/1543/1544). 6. Primed fuel system. 7. Ground run - AUX FUEL/fuel filter warning light extinguished; fuel pressure within limits. Parts replaced: 1x Fuel Filter Element.",
+    "category": "fault_diagnosis",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Fuel filter contamination level and debris type (visual inspection after removal); blocked fuel filter switch pressure differential wiring condition wires 1541/1532/1539; G655 Fuel Filter Warning Time Delay unit wiring wires 1543/1530; D767 Fuel Pump Logic Module connection security; fuel pressure with new filter installed vs. limits; system prime procedure after filter replacement."
+  },
+  {
+    "id": "q-1780778779755-8sz2h45",
+    "question": "Pilot reports avionics master switch inoperative on a Robinson R44 Raven II. All avionics (GPS, COM radio, transponder) remain unpowered when avionics master switch is selected ON. Battery switch is ON, engine is running, and all circuit breakers are in. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Confirmed all AVIONICS circuit breakers are in. 2. Inspected AVIONICS SWITCH wiring: wires 2234/2233/105/2038. 3. Measured voltage at avionics switch input - 14V present. 4. Measured voltage at avionics switch output - 0V (switch internal fault confirmed). 5. Replaced AVIONICS SWITCH. 6. Verified avionics powered correctly with new switch. 7. Tested GPS, COM transceiver (TO COM X'CVR wire 201), and transponder (SEE C804 per schematic) - all operational. Parts replaced: 1x Avionics Master Switch.",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Voltage at avionics switch input vs. output (input live at 14V with output at 0V = switch failed internally); avionics circuit breaker rating and condition; AVIONICS MASTER relay energisation; wiring continuity wires 2234/2233/105/2038; post-replacement verification that GPS, COM, and transponder all power up; GPS KEEP ALIVE wire 2792 continuity for avionics keep-alive function."
+  },
+  {
+    "id": "q-1780778779755-8iziuv7",
+    "question": "Pilot reports fuel quantity gauge reading full with only 10 USG confirmed on dipstick on a Robinson R44 Raven II. Engine running normally. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Confirmed fuel quantity on calibrated dipstick - 10 USG actual. 2. Inspected main fuel quantity sender (wires 52W/52B) float arm - found stuck in full position (bent float arm contact with tank structure). 3. Inspected aux fuel quantity sender (wires 416W/416B) - serviceable. 4. Freed and straightened main fuel qty sender float arm. 5. Rechecked sender movement through full range of travel - smooth. 6. Verified fuel qty gauge reads correctly at actual fuel quantity. Parts replaced: None (float arm freed and straightened).",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Actual fuel quantity by dipstick vs. gauge reading; main fuel qty sender (wires 52W/52B) float arm freedom of movement and contact with tank structure; aux fuel qty sender (wires 416W/416B) comparison reading; sender float arm physical condition (bending, corrosion); gauge accuracy post-repair at multiple fuel levels."
+  },
+  {
+    "id": "q-1780778779755-7qs0fal",
+    "question": "Pilot reports battery not holding charge - avionics lose power after approximately 10 minutes with engine off on a Robinson R44 Raven I. Battery was recently serviced. What troubleshooting should be performed?",
+    "expectedAnswer": "1. Checked battery terminal connections for corrosion and security at nose battery location (A780-22 positive, A780-79 negative). 2. Performed battery capacity test - battery found below serviceable capacity limit. 3. Inspected battery relay (AFT BATTERY RELAY A780-46) wiring and contacts. 4. Checked BATTERY SWITCH wiring (wires 65/121/104) for integrity. 5. Replaced battery with new serviceable unit. 6. Verified correct charging voltage from alternator (14.0V). 7. Tested avionics hold-up time on ground - satisfactory. Parts replaced: 1x Battery (nose battery).",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Battery capacity test result vs. serviceable minimum (open circuit voltage and load test); battery terminal connection condition (corrosion, torque); battery relay (A780-46) contact resistance and wiring; BATTERY SWITCH wiring condition wires 65/121/104; alternator charging voltage (14.0V expected); date of last battery replacement vs. service life; parasitic drain measurement with avionics off."
+  },
+  {
+    "id": "q-1780778779755-717cxwd",
+    "question": "Pilot reports hour meter (Hobbs) not incrementing on a Robinson R44 Raven I. No change in flight time shown after a 1.5-hour flight. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Checked hour meter power circuit: wire #42 from engine (ignition feed to hour meter) and collective switch (HOUR METER circuit, wire 1556 FULL DOWN, NC contacts). 2. Inspected hour meter connector - found corroded connection at wire #42 terminal. 3. Cleaned connector with electrical contact cleaner; re-crimped terminal. 4. Verified hour meter increments correctly when engine is running and collective switch is in correct position. Parts replaced: None.",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Hour meter power circuit wire #42 from engine; collective switch (HOUR METER, wire 1556) NC contact operation with collective full down; connector pin condition at wire #42; engine RPM signal to hour meter; post-repair verification that Hobbs increments in flight."
+  },
+  {
+    "id": "q-1780778779755-5zpndvp",
+    "question": "Pilot reports T.R.G.B. CHIP warning light ON during cruise on a Robinson R44 Raven I. Pilot landed immediately as a precaution. No unusual vibration or sounds noted during flight. What inspection and corrective action is required?",
+    "expectedAnswer": "1. Removed T.R.G.B. chip detector (C021, wires 5/503) and inspected on white cloth - found 2 fine magnetic particles (<0.5 mm), consistent with normal break-in wear; no metallic flakes or spirals. 2. Cleaned chip detector with solvent; re-installed. 3. Inspected T.R.G.B. oil level - within limits. 4. Verified chip detector circuit continuity: wire #5 and wire #503 (case GND) - serviceable. 5. Rotated tail rotor by hand - smooth, no binding. 6. 30-minute ground run and 30-minute air test - chip light did not re-illuminate. 7. Gearbox oil re-checked - no contamination. Parts replaced: None.",
+    "category": "maintenance_procedure",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Particle size, count, and morphology on white cloth inspection (fine magnetic <0.5 mm = clean and monitor; metallic flake or spiral = AOG); chip detector circuit continuity wires 5 and 503 (case GND); T.R.G.B. oil level and colour; tail rotor rotation resistance by hand; chip light status during extended ground run; gearbox oil contamination; time since last chip detector inspection."
+  },
+  {
+    "id": "q-1780778779755-4tqkx6o",
+    "question": "Pilot reports oil temperature gauge reading near the top of the green arc during cruise on a Robinson R44 Raven II with a Lycoming O-540-F1B5. OAT was 28 degrees C. Temperature returned to mid-green after power reduction. All other parameters normal. Is this a fault or acceptable operation?",
+    "expectedAnswer": "1. Reviewed flight conditions - OAT 28 deg C at cruise power: oil temperature at upper green arc is acceptable per Lycoming Maint. Manual in high ambient conditions. 2. Inspected oil cooler bypass valve assembly (P/N 53E22144) and gasket (P/N 76510) - correct installation, serviceable. 3. Inspected oil cooler bypass plug (P/N 62417) and gasket (P/N 06E19769-0.63) - serviceable. 4. Cleaned oil cooler fins with compressed air (light insect contamination). 5. Verified oil quantity - full. 6. Inspected A760-3 Oil Temp Sender (RED/RED/BLK) connector - secure. 7. Ground run at max continuous power - oil temp stabilised within green arc. Parts replaced: None.",
+    "category": "limits_and_specifications",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: OAT and power setting at time of event vs. Lycoming temperature limits; oil cooler bypass valve (P/N 53E22144) condition and correct installation; oil cooler fin contamination (insects, debris); oil quantity; A760-3 Oil Temp Sender wiring security; oil temperature at max continuous power during ground run; whether temperature is recoverable by power reduction alone."
+  },
+  {
+    "id": "q-1780778779755-3x060go",
+    "question": "Pilot reports HYD warning light ON during cruise on a Robinson R44 Raven I with heavier-than-normal control forces. Pilot cycled hydraulics OFF then ON - light extinguished and control forces returned to normal. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Inspected hydraulic fluid level - found at lower limit; topped up to correct level with approved hydraulic fluid. 2. Inspected hydraulic servo actuator connections and hoses - no leaks found. 3. Inspected HYD valve circuit: HYD SW wires 628/629 and HYD solenoid wires 629/630 - valve operated smoothly. 4. Inspected HYD CONTROL SWITCH connector security: wires 629/BLU/WHT/ORG. 5. Cycled hydraulics multiple times on ground - HYD warning light did not illuminate after fluid top-up. 6. 30-minute air test - control forces normal; HYD WARN. LT clear. Parts replaced: Hydraulic fluid (consumable - topped to correct level).",
+    "category": "fault_diagnosis",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Hydraulic fluid level vs. R44 Maint. Manual limits (low fluid is most common cause); servo actuator hoses and fittings for leaks; HYD valve operation and solenoid wiring wires 629/630; HYD CONTROL SWITCH connector security wires 629/BLU/WHT/ORG; G198 WRG LT Panel HYD lamp circuit; flight conditions at time of illumination; whether control forces returned to normal after cycling."
+  },
+  {
+    "id": "q-1780778779755-3d7yl6y",
+    "question": "Pilot reports LOW VOLTAGE warning light ON approximately 45 minutes into flight on a Robinson R44 Raven I. Ammeter shows a slight discharge. Pilot landed as a precaution. All other systems normal. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Checked alternator drive belt (P/N 37A19773-376) tension - found below lower limit per R44 Maint. Manual. Adjusted belt to correct tension. 2. Measured alternator (P/N 32B19549, 12V/70A) output at cruise power - 13.2V before retensioning (limit 13.5-14.5V); 14.0V after - within limits. 3. Inspected alternator control unit (A942 ACU) wiring: ORG/WHT/RED/YLW/BLU/BLK connections - all secure. 4. Checked XSSVS-0802 low voltage module circuit: wires 3057/3060/3058/2895 - serviceable. 5. 30-minute ground run - voltage stable at 14.0V; LOW VOLTAGE light extinguished. Parts replaced: None (belt retensioned only).",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Alternator drive belt tension vs. R44 Maint. Manual lower limit; alternator output voltage at cruise power vs. system limit (13.5-14.5V for 14V system); A942 ACU wiring connection security; XSSVS-0802 low voltage module circuit wires 3057/3060/3058/2895; battery voltage and state of charge; ammeter reading post-repair; electrical load at time of event."
+  },
+  {
+    "id": "q-1780778779755-2o4ey6s",
+    "question": "Pilot reports left (red) position light inoperative on pre-flight of a Robinson R44 Raven II. Right (green) and tail (white) position lights are serviceable. NAV LTS switch confirmed ON. No circuit breaker tripped. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Checked NAV LTS circuit breaker - serviceable. 2. Inspected A039 LH Position Light wiring: R/BLK/WHT connections at connector. 3. Measured voltage at A039 LH position light connector - 14V present. 4. Removed left position light (A039) - lamp found with open filament. 5. Replaced A039 LH position light lamp. 6. Tested all three position lights with NAV LTS switch ON - all serviceable. Parts replaced: 1x A039 LH Position Light lamp.",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Voltage at A039 LH position light connector (14V present = circuit to lamp is good); lamp filament condition after removal; NAV LTS switch wiring continuity; circuit breaker condition; left vs. right/tail light circuit comparison to isolate fault; post-replacement functional test of all three position lights."
+  },
+  {
+    "id": "q-1780778779755-2bp6iwf",
+    "question": "Pilot reports engine oil pressure fluctuating between 45 and 70 psi at low idle during an extended ground run on a Robinson R44 Raven II with a Lycoming O-540-F1B5. Pressure is stable at higher power settings. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Checked oil quantity - full. 2. Checked oil viscosity for ambient temperature - correct grade in use. 3. Removed oil pressure relief valve assembly (P/N 77808) and inspected. 4. Removed spring (P/N 68668) - measured free length; found below minimum service limit per Lycoming Maint. Manual. 5. Replaced oil pressure relief valve spring (P/N 68668) with new unit. 6. Re-installed relief valve assembly. 7. Ground run at various power settings including low idle - oil pressure stable at 60+ psi at idle; 75-85 psi at cruise power. Parts replaced: 1x Oil Pressure Relief Valve Spring P/N 68668.",
+    "category": "limits_and_specifications",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Oil quantity and viscosity grade vs. ambient temperature; oil pressure relief valve spring (P/N 68668) free length vs. service minimum limit; relief valve ball (P/N 1028-B) condition; oil pressure at various power settings (idle, cruise) during ground run; oil temperature effect on idle pressure; oil pressure sender calibration."
+  },
+  {
+    "id": "q-1780778779755-0svwxrm",
+    "question": "Pilot reports GOV OFF warning light ON in cruise on a Robinson R44 Raven II with the governor switch confirmed in the ON position. RPM is stable at 102%. Governor appears to be controlling RPM normally. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Inspected governor switch (GOV ON-OFF) wiring: wires 577/576/3034/2897 at switch. 2. Checked D270 GOV/EMU controller connections: wires 578W/578B/29/28/33/35/36/34. 3. Traced GOV OFF warning circuit: wire #694 from G198 WRG LT Panel GOV OFF lamp - found intermittent open at solder splice near console. 4. Re-soldered and insulated splice. 5. Cycled governor switch ON/OFF - GOV OFF lamp responds correctly (ON with switch OFF; extinguished with switch ON). 6. Ground run - governor controlling correctly; GOV OFF light extinguished with switch ON. Parts replaced: None.",
+    "category": "electrical_troubleshooting",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Governor switch wiring continuity wires 577/576/3034/2897; D270 GOV/EMU controller connections wires 578W/578B; wire #694 continuity from G198 panel GOV OFF lamp to switch; solder splice and connector condition near console; GOV OFF lamp response to switch cycling; governor RPM control performance during ground run."
+  },
+  {
+    "id": "q-1780778779755-0r7fz2q",
+    "question": "Pilot reports engine rough running at cruise power on a Robinson R44 Raven II with a Lycoming O-540-F1B5. Slight vibration felt through the airframe. All engine gauges within normal limits. What troubleshooting and corrective action should be performed?",
+    "expectedAnswer": "1. Performed magneto check to isolate affected circuit - left magneto drop elevated; right within limits. 2. Removed all 12 spark plugs (Champion REM38E P/N 1182-E7 and Unison UREM38E P/N 1182-S4 as installed). 3. Inspected all plugs per Lycoming Maint. Manual - cylinder #2 top plug found heavily fouled with lead deposits; all others within limits. 4. Cleaned all plugs with plug cleaner/blaster; re-gapped all to Lycoming Maint. Manual limits. 5. Replaced cylinder #2 top plug with new Champion REM38E (P/N 1182-E7). 6. Re-installed all plugs with anti-seize to specified torque. 7. Ground run - smooth operation; both magneto drops within 125 RPM limit. Parts replaced: 1x Champion REM38E Spark Plug P/N 1182-E7 (Cyl #2, top position).",
+    "category": "limits_and_specifications",
+    "tags": [],
+    "notes": "Imported from live DB. Key Points: Magneto drop check to identify which circuit is affected; individual spark plug fouling type (lead, oil, carbon) and severity; spark plug gap measurement vs. Lycoming limits; which cylinder and position (top/bottom) the fouled plug is in; plug cleaning and re-gapping effectiveness; post-service magneto drop check (max 125 RPM both mags); anti-seize application and installation torque."
+  }
+]
