@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Beaker, Trash2, ChevronDown, ChevronUp, FileText, Database, ShieldAlert, CheckCircle2, ThumbsUp, ThumbsDown, MessageSquare } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import baselineData from '../../data/symptom-pattern-baseline-render.json';
+import baselineData from '../../data/symptom-pattern-merged.json';
 
 interface Source {
   name?: string;
@@ -56,7 +56,7 @@ export function TestLab() {
   });
   
   useEffect(() => {
-    const saved = localStorage.getItem('symptom-pattern-eval-cases');
+    const saved = localStorage.getItem('symptom-pattern-eval-cases-v2');
     if (saved) {
       try {
         setCases(JSON.parse(saved));
@@ -67,13 +67,13 @@ export function TestLab() {
     } else {
       setCases(baselineData as EvalCase[]);
       // Optionally save to local storage immediately so it persists
-      localStorage.setItem('symptom-pattern-eval-cases', JSON.stringify(baselineData));
+      localStorage.setItem('symptom-pattern-eval-cases-v2', JSON.stringify(baselineData));
     }
   }, []);
 
   const saveToLocalStorage = (updatedCases: EvalCase[]) => {
     setCases(updatedCases);
-    localStorage.setItem('symptom-pattern-eval-cases', JSON.stringify(updatedCases));
+    localStorage.setItem('symptom-pattern-eval-cases-v2', JSON.stringify(updatedCases));
   };
 
   const updateCaseInList = (updatedCase: Partial<EvalCase>) => {
