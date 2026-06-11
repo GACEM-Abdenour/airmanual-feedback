@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Beaker, Trash2, ChevronDown, ChevronUp, FileText, Database, ShieldAlert, CheckCircle2, ThumbsUp, ThumbsDown, MessageSquare } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import baselineData from '../../data/symptom-pattern-baseline-render.json';
 
 interface Source {
   name?: string;
@@ -61,7 +62,12 @@ export function TestLab() {
         setCases(JSON.parse(saved));
       } catch (e) {
         console.error('Failed to parse saved cases', e);
+        setCases(baselineData as EvalCase[]);
       }
+    } else {
+      setCases(baselineData as EvalCase[]);
+      // Optionally save to local storage immediately so it persists
+      localStorage.setItem('symptom-pattern-eval-cases', JSON.stringify(baselineData));
     }
   }, []);
 
