@@ -239,13 +239,19 @@ export function TestLab() {
             
             <div className="p-4 flex-1 flex flex-col gap-4">
               <div className="prose prose-invert prose-sm max-w-none text-textMain bg-surface/50 p-4 rounded-md border border-borderMain">
-                {currentCase.currentAnswerText && currentCase.currentAnswerText !== 'No text extracted' ? (
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {currentCase.currentAnswerText}
-                  </ReactMarkdown>
-                ) : (
-                  <span className="text-textMuted italic">No Version 1 baseline captured yet.</span>
-                )}
+                {(() => {
+                  const v1Text = (currentCase.currentAnswerText && currentCase.currentAnswerText !== 'No text extracted') 
+                    ? currentCase.currentAnswerText 
+                    : (currentCase.currentRawJson?.text_reply || '');
+                    
+                  return v1Text ? (
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {v1Text}
+                    </ReactMarkdown>
+                  ) : (
+                    <span className="text-textMuted italic">No Version 1 baseline captured yet.</span>
+                  );
+                })()}
               </div>
 
               {currentCase.currentSources && currentCase.currentSources.length > 0 && (
@@ -382,12 +388,15 @@ export function TestLab() {
                 <p className="text-sm text-white font-medium line-clamp-3 mb-3 leading-snug">{c.question}</p>
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-2">
-                    {c.currentAnswerText && c.currentAnswerText !== 'No text extracted' && (
-                      <span className="text-[10px] text-indigo-300 flex items-center">
-                        <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 mr-1" />
-                        V1
-                      </span>
-                    )}
+                    {(() => {
+                      const hasV1 = (c.currentAnswerText && c.currentAnswerText !== 'No text extracted') || c.currentRawJson?.text_reply;
+                      return hasV1 && (
+                        <span className="text-[10px] text-indigo-300 flex items-center">
+                          <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 mr-1" />
+                          V1
+                        </span>
+                      );
+                    })()}
                     {c.afterAnswerText && c.afterAnswerText !== 'No text extracted' && (
                       <span className="text-[10px] text-amber-300 flex items-center">
                         <div className="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1" />
